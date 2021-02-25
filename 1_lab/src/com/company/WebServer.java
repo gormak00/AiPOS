@@ -5,10 +5,12 @@ import java.io.InputStream;
 import java.net.Socket;
 
 public class WebServer extends Thread {
+
     private Socket s;
 
     public WebServer(Socket s) {
         this.s = s;
+
         setDaemon(true);
         setPriority(NORM_PRIORITY);
         start();
