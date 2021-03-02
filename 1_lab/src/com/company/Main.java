@@ -1,11 +1,16 @@
 package com.company;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        File f = new File("./log.txt");
+        if(f.exists()) f.delete();
+
         try
         {
             // устанавливаем сокет на localhost:8080
