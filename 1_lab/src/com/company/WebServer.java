@@ -76,33 +76,79 @@ public class WebServer extends Thread {
         s.close();
     }
 
+    private void saveFileFromPost(Socket s, String filename, long contentLength, String fileBytes) throws IOException {
+        /*DataInputStream dis = new DataInputStream(s.getInputStream());
+        FileOutputStream fos = new FileOutputStream(filename, false);
+        byte[] buffer = new byte[64 * 1024];
+
+        int filesize = (int) contentLength; // Send file size in separate msg
+        int read = 0;
+        int totalRead = 0;
+        int remaining = filesize;
+        while((read = dis.read(buffer)) > 0) {
+            totalRead += read;
+            System.out.println("read " + totalRead + " bytes.");
+            fos.write(buffer, 0, read);
+        }
+
+        fos.close();
+        dis.close();*/
+        /*InputStream in = s.getInputStream();
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(filename);
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found. ");
+        }
+c
+        byte[] bytes = new byte[64*1024];
+
+        int count;
+        while ((count = in.read(bytes)) > 0) {
+            out.write(bytes, 0, count);
+        }
+
+        out.close();
+        in.close();*/
+        /*InputStream in = s.getInputStream();
+        OutputStream out = new FileOutputStream(filename);
+        byte[] buffer = new byte[64 * 1024];
+        //FileInputStream fis = new FileInputStream(path);
+        int countOfData = 1;
+        while (countOfData > 0) {
+            countOfData = in.read(buffer);*//*(int) contentLength; //fis.read(buf);*//*
+            if (countOfData > 0) out.write(buffer, 0, countOfData);
+        }
+        //fis.close();
+        out.close();
+        in.close();*/
+
+        FileWriter writer = new FileWriter(filename, false);
+        writer.write(fileBytes);
+
+    }
+
     private void postRequest(String request, byte buf[]) throws IOException {
+        String filename = /*"./resources/" + */getFilenameFromRequest(request);
+        String fileBytes = getFileBytesFromRequest(request);
+        long contentLength = getContentLengthFromRequest(request);
+
+        saveFileFromPost(s, filename, contentLength, fileBytes);
         OutputStream os = s.getOutputStream();
 
         String path = getPath(request);
-
-        String filename = getFilenameFromRequest(request);
-
-        // если файл существует и является директорией,
-        // то ищем файл HelloDY.html
-        File f = new File(path);
-        boolean flag = !f.exists();
-        if (!flag) if (f.isDirectory()) {
-            if (path.lastIndexOf("" + File.separator) == path.length() - 1)
-                path = path + "HelloDY.html";
-            else
-                path = path + File.separator + "HelloDY.html";
-            f = new File(path);
-            flag = !f.exists();
-        }
     }
 
     private String getFileBytesFromRequest(String request) {
-        int index = request.indexOf("Content-Type:");
-        String otherPart = request.substring(index + 10);
-        int indexEnd = otherPart.indexOf("\"");
-        String filename = otherPart.substring(0, indexEnd);
-        return filename;
+        int indexForStartPart = request.indexOf("filename");
+        String startPart = request.substring(indexForStartPart + 10);
+        int index = startPart.indexOf("Content-Type:");
+        String otherPart = startPart.substring(index);
+        int indexStart = otherPart.indexOf("\r") + 4;
+        String fileBytes = otherPart.substring(indexStart);
+        int indexForTIRE = fileBytes.indexOf("----------------------------");
+        fileBytes = fileBytes.substring(0, indexForTIRE);
+        return fileBytes;
     }
 
     private String getFilenameFromRequest(String request) {
@@ -111,6 +157,14 @@ public class WebServer extends Thread {
         int indexEnd = otherPart.indexOf("\"");
         String filename = otherPart.substring(0, indexEnd);
         return filename;
+    }
+
+    private long getContentLengthFromRequest(String request) {
+        int index = request.indexOf("Content-Length");
+        String otherPart = request.substring(index + 16);
+        int indexEnd = otherPart.indexOf("\r");
+        long contentLength = Long.parseLong(otherPart.substring(0, indexEnd));
+        return contentLength;
     }
 
     private String createResponse(String codeStatus, String contentType, long fileLastModified, long fileLength) {
