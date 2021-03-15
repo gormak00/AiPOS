@@ -21,8 +21,8 @@ public class Car {
     @Column(name = "model")
     private String model;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rent_company"/*, referencedColumnName = "id"*/)
+    @ManyToOne
+    @JoinColumn(name = "id_rent_company")
     private RentCompany rentCompany;
 
     @Transient

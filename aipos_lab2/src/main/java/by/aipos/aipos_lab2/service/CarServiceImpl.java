@@ -18,12 +18,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void addCar(Car car) {
+        Car car1 = new Car(car.getNumber(), car.getModel(), car.getRentCompanyString(), car.isRented());
         int count = carRepository.findAll().size();
-        if (count == 0) car.setId(1);
-            else car.setId(count + 1);
+        if (count == 0) car1.setId(1);
+            else car1.setId(count + 1);
 
-        car.setRentCompany(rentCompanyRepository.findByName(car.getRentCompanyString()));
-        carRepository.save(car);
+        car1.setRentCompany(rentCompanyRepository.findByName(car1.getRentCompanyString()));
+        carRepository.save(car1);
     }
 
     @Override
