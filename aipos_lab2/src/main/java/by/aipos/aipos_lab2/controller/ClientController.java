@@ -5,10 +5,7 @@ import by.aipos.aipos_lab2.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,11 @@ public class ClientController {
     public ResponseEntity<?> addClient(@RequestBody Client client) {
         clientService.addClient(client);
         return new ResponseEntity(clientService.getAllClients(), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/client/{id}")
+    public ResponseEntity<?> dropClientById(@PathVariable(name = "id") int id){
+        clientService.dropClientById(id);
+        return new ResponseEntity(clientService.getAllClients(), HttpStatus.OK);
     }
 }

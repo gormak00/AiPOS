@@ -16,12 +16,17 @@ public class ClientServiceImpl implements ClientService {
     public void addClient(Client client) {
         int count = clientRepository.findAll().size();
         if (count == 0) client.setId(1);
-        else client.setId(count + 1);
+            else client.setId(count + 1);
         clientRepository.save(client);
     }
 
     @Override
     public List<Client> getAllClients() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public void dropClientById(int id){
+        clientRepository.deleteById(id);
     }
 }
