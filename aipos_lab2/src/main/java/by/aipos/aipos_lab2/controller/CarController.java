@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +22,17 @@ public class CarController {
         return new ResponseEntity(carService.getAllCars(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/car/{id}")
+    public ResponseEntity<?> getCarById(@PathVariable(name = "id") int id){
+        return new ResponseEntity(carService.getCarById(id), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/car")
-    public ResponseEntity<?> addCar(@RequestBody Car car){
-        carService.addCar(car);
-        return new ResponseEntity(carService.getAllCars(), HttpStatus.CREATED);
+    public String addCar(@RequestBody Car car, Model model){
+        //carService.addCar(car);
+        //return new ResponseEntity(carService.getAllCars(), HttpStatus.CREATED);
+        model.addAttribute("car", carService.addCar(car));
+        return "carAddPage";
     }
 
     @DeleteMapping(value = "/car/{id}")

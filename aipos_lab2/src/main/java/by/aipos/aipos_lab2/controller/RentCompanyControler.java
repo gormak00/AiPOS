@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +21,17 @@ public class RentCompanyControler {
         return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/rentCompany/{id}")
+    public ResponseEntity<List<RentCompany>> getRentCompanyById(@PathVariable(name = "id") int id){
+        return new ResponseEntity(rentCompanyService.getRentCompanyById(id), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/rentCompany")
-    public ResponseEntity<?> addRentCompany(@RequestBody RentCompany rentCompany){
-        rentCompanyService.addRentCompany(rentCompany);
-        return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.CREATED);
+    public String addRentCompany(@RequestBody RentCompany rentCompany, Model model){
+        //rentCompanyService.addRentCompany(rentCompany);
+        //return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.CREATED);
+        model.addAttribute("rentCompany", rentCompanyService.addRentCompany(rentCompany));
+        return "rentCompanyAddPage";
     }
 
     @DeleteMapping(value = "/rentCompany/{id}")

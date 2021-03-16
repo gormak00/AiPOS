@@ -5,7 +5,11 @@ import by.aipos.aipos_lab2.model.Car;
 import java.util.List;
 
 public interface CarService {
-    void addCar(Car car);
+    Car addCar(Car car);
+
+    Car getCarById(int id);
+
     List<Car> getAllCars();
+
     void dropCarById(int id);
 }

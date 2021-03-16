@@ -14,11 +14,16 @@ public class RentCompanyServiceImpl implements RentCompanyService {
     private RentCompanyRepository rentCompanyRepository;
 
     @Override
-    public void addRentCompany(RentCompany rentCompany) {
+    public RentCompany addRentCompany(RentCompany rentCompany) {
         int count = rentCompanyRepository.findAll().size();
         if(count==0) rentCompany.setId(1);
             else rentCompany.setId(count +1);
-        rentCompanyRepository.save(rentCompany);
+        return rentCompanyRepository.save(rentCompany);
+    }
+
+    @Override
+    public RentCompany getRentCompanyById(int id){
+        return rentCompanyRepository.findById(id).get();
     }
 
     @Override

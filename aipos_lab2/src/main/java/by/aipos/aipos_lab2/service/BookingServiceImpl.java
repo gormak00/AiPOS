@@ -24,7 +24,7 @@ public class BookingServiceImpl implements BookingService {
     private ClientRepository clientRepository;
 
     @Override
-    public void addBooking(Booking booking) {
+    public Booking addBooking(Booking booking) {
         Booking booking1 = new Booking(booking.getClientId(), booking.getCarId(), booking.getDateStartString(), booking.getDateEndString());
         int count = bookingRepository.findAll().size();
         if (count == 0) booking1.setId(1);
@@ -36,16 +36,21 @@ public class BookingServiceImpl implements BookingService {
         if(!car1.isRented()){
             booking1.setCar(carRepository.findById(booking1.getCarId()).get());
             car1.setRented(true);
-        } //+ todo какая-то логика если выбрана машина у которой rented=true
+        }  else return null;//+ todo какая-то логика если выбрана машина у которой rented=true
 
         booking1.setDateStart(LocalDate.parse(booking1.getDateStartString()));
         booking1.setDateEnd(LocalDate.parse(booking1.getDateEndString()));
-        bookingRepository.save(booking1);
+        return bookingRepository.save(booking1);
     }
 
     @Override
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
+    }
+
+    @Override
+    public Booking getBookingById(int id) {
+        return bookingRepository.findById(id).get();
     }
 
     @Override

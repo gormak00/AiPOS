@@ -24,7 +24,9 @@ public class BookingController {
     @PostMapping(value = "/booking")
     public ResponseEntity<?> addBooking(@RequestBody Booking booking){
         bookingService.addBooking(booking);
-        return new ResponseEntity(bookingService.getAllBookings(), HttpStatus.CREATED);
+        return bookingService.addBooking(booking) != null
+                ? new ResponseEntity(bookingService.getAllBookings(), HttpStatus.CREATED)
+                : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping(value = "/booking/{id}")

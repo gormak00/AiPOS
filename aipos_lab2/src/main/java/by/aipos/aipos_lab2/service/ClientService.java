@@ -5,7 +5,9 @@ import by.aipos.aipos_lab2.model.Client;
 import java.util.List;
 
 public interface ClientService {
-    void addClient(Client client);
+    Client addClient(Client client);
+
+    Client getClientById(int id);
 
     List<Client> getAllClients();
 

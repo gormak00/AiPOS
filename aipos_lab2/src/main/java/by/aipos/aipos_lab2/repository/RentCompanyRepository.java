@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RentCompanyRepository extends JpaRepository<RentCompany, Integer> {
-
-    public RentCompany findByName(String name);
+    RentCompany findByName(String name);
 }

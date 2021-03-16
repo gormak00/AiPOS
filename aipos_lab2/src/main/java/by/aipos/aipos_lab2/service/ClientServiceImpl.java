@@ -13,11 +13,12 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
-    public void addClient(Client client) {
+    public Client addClient(Client client) {
         int count = clientRepository.findAll().size();
         if (count == 0) client.setId(1);
             else client.setId(count + 1);
-        clientRepository.save(client);
+
+        return clientRepository.save(client);
     }
 
     @Override
@@ -28,5 +29,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void dropClientById(int id){
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public Client getClientById(int id){
+        return clientRepository.findById(id).get();
     }
 }

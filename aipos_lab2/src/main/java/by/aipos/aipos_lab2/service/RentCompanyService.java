@@ -5,7 +5,9 @@ import by.aipos.aipos_lab2.model.RentCompany;
 import java.util.List;
 
 public interface RentCompanyService {
-    void addRentCompany(RentCompany rentCompany);
+    RentCompany addRentCompany(RentCompany rentCompany);
+
+    RentCompany getRentCompanyById(int id);
 
     List<RentCompany> getAllRentCompanies();
 
