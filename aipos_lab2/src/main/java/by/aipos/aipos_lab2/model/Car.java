@@ -14,10 +14,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cars")
 public class Car {
+
     @Id
     private int id;
+
     @Column(name = "number")
     private String number;
+
     @Column(name = "model")
     private String model;
 
@@ -25,16 +28,6 @@ public class Car {
     @JoinColumn(name = "id_rent_company")
     private RentCompany rentCompany;
 
-    @Transient
-    private String rentCompanyString;
-
     @Column(name = "rented")
     private boolean rented;
-
-    public Car(String number, String model, String rentCompanyString, boolean rented) {
-        this.number = number;
-        this.model = model;
-        this.rentCompanyString = rentCompanyString;
-        this.rented = rented;
-    }
 }

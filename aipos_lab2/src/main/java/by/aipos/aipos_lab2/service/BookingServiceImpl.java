@@ -1,7 +1,6 @@
 package by.aipos.aipos_lab2.service;
 
 import by.aipos.aipos_lab2.model.Booking;
-import by.aipos.aipos_lab2.model.Car;
 import by.aipos.aipos_lab2.repository.BookingRepository;
 import by.aipos.aipos_lab2.repository.CarRepository;
 import by.aipos.aipos_lab2.repository.ClientRepository;
@@ -25,22 +24,17 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking addBooking(Booking booking) {
-        Booking booking1 = new Booking(booking.getClientId(), booking.getCarId(), booking.getDateStartString(), booking.getDateEndString());
+        if (booking.getCar() == null || booking.getClient() == null)
+            throw new IllegalArgumentException("FUCK YOU SMTH IS NULL"); //todo response 400 Bad Request
         int count = bookingRepository.findAll().size();
-        if (count == 0) booking1.setId(1);
-            else booking1.setId(count + 1);
+        if (count == 0) booking.setId(1);
+        else booking.setId(count + 1);
+        if (booking.getCar().isRented())
+            throw new IllegalArgumentException("FUCK YOU, CAR IS RENTED"); //todo response 400 Bad Request
+        if (booking.getDateStart().isAfter(LocalDate.now()) || booking.getDateEnd().isBefore(LocalDate.now()))
+            throw new IllegalArgumentException("FUCK YOU, DATE IS UNCORRECTED"); //todo response 400 Bad Request
 
-        booking1.setClient(clientRepository.findById(booking1.getClientId()).get());
-
-        Car car1 = carRepository.findById(booking1.getCarId()).get();
-        if(!car1.isRented()){
-            booking1.setCar(carRepository.findById(booking1.getCarId()).get());
-            car1.setRented(true);
-        }  else return null;//+ todo какая-то логика если выбрана машина у которой rented=true
-
-        booking1.setDateStart(LocalDate.parse(booking1.getDateStartString()));
-        booking1.setDateEnd(LocalDate.parse(booking1.getDateEndString()));
-        return bookingRepository.save(booking1);
+        return bookingRepository.save(booking);
     }
 
     @Override

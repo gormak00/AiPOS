@@ -18,13 +18,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car addCar(Car car) {
-        Car car1 = new Car(car.getNumber(), car.getModel(), car.getRentCompanyString(), car.isRented());
+        if (car.getRentCompany() == null)
+            throw new IllegalArgumentException("FUCK YOU"); //todo response 400 Bad Request
         int count = carRepository.findAll().size();
-        if (count == 0) car1.setId(1);
-            else car1.setId(count + 1);
+        if (count == 0) car.setId(1);
+        else car.setId(count + 1);
 
-        car1.setRentCompany(rentCompanyRepository.findByName(car1.getRentCompanyString()));
-        return carRepository.save(car1);
+        return carRepository.save(car);
     }
 
     @Override
