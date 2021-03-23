@@ -12,4 +12,6 @@ public interface ClientService {
     List<Client> getAllClients();
 
     void dropClientById(int id);
+
+    Client updateClientById(Client client, int id);
 }

@@ -9,9 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,7 +33,7 @@ public class CarController {
     }
 
     @PostMapping(value = "/car")
-    public String addCar(@Validated @RequestBody CarDto carDto, Model model) {
+    public String addCar(@Valid @RequestBody CarDto carDto, Model model) {
         Car car = carMapping.toCar(carDto);
         model.addAttribute("car", carService.addCar(car));
         return "carAddPage";

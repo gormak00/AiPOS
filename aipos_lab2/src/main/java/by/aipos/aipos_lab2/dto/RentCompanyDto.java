@@ -14,6 +14,6 @@ import javax.validation.constraints.Size;
 @Getter
 public class RentCompanyDto {
     @NotNull(message = "Empty name field")
-    @Size(message = "Name is too long (max = 25)", max = 25)
+    @Size(message = "Name is too long (min = 1, max = 25)", min = 1, max = 25)
     private String name;
 }

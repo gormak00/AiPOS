@@ -43,4 +43,10 @@ public class ClientController {
         clientService.dropClientById(id);
         return new ResponseEntity(clientService.getAllClients(), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/client/{id}")
+    public ResponseEntity<?> updateClientById(@PathVariable(name = "id") int id, @Valid @RequestBody ClientDto clientDto) {
+        Client client = ClientMapper.toClient(clientDto);
+        return new ResponseEntity(clientService.updateClientById(client, id), HttpStatus.OK);
+    }
 }

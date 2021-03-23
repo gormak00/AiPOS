@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class RentCompanyController {
     }
 
     @PostMapping(value = "/rentCompany")
-    public String addRentCompany(@RequestBody RentCompanyDto rentCompanyDto, Model model) {
+    public String addRentCompany(@Valid @RequestBody RentCompanyDto rentCompanyDto, Model model) {
         RentCompany rentCompany = RentCompanyMapper.toRentCompany(rentCompanyDto);
         model.addAttribute("rentCompany", rentCompanyService.addRentCompany(rentCompany));
         return "rentCompanyAddPage";

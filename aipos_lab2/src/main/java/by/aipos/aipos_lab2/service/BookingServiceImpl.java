@@ -5,7 +5,9 @@ import by.aipos.aipos_lab2.repository.BookingRepository;
 import by.aipos.aipos_lab2.repository.CarRepository;
 import by.aipos.aipos_lab2.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,15 +26,19 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking addBooking(Booking booking) {
-        if (booking.getCar() == null || booking.getClient() == null)
-            throw new IllegalArgumentException("FUCK YOU SMTH IS NULL"); //todo response 400 Bad Request
-        int count = bookingRepository.findAll().size();
-        if (count == 0) booking.setId(1);
-        else booking.setId(count + 1);
-        if (booking.getCar().isRented())
-            throw new IllegalArgumentException("FUCK YOU, CAR IS RENTED"); //todo response 400 Bad Request
-        if (booking.getDateStart().isAfter(LocalDate.now()) || booking.getDateEnd().isBefore(LocalDate.now()))
-            throw new IllegalArgumentException("FUCK YOU, DATE IS UNCORRECTED"); //todo response 400 Bad Request
+        if (booking.getCar() == null || booking.getClient() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car or client is null");
+        }
+        if (booking.getCar().isRented()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is rented");
+        }
+        if (booking.getDateStart().isAfter(LocalDate.now()) || booking.getDateEnd().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date");
+        }
+
+        List<Booking> bookingsFromRepository = bookingRepository.findAll();
+        if (bookingsFromRepository.size() == 0) booking.setId(1);
+        else booking.setId(bookingsFromRepository.get(bookingsFromRepository.size() - 1).getId() + 1);
 
         return bookingRepository.save(booking);
     }

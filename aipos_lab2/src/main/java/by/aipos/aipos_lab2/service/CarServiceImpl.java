@@ -4,7 +4,9 @@ import by.aipos.aipos_lab2.model.Car;
 import by.aipos.aipos_lab2.repository.CarRepository;
 import by.aipos.aipos_lab2.repository.RentCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,11 +20,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car addCar(Car car) {
-        if (car.getRentCompany() == null)
-            throw new IllegalArgumentException("FUCK YOU"); //todo response 400 Bad Request
-        int count = carRepository.findAll().size();
-        if (count == 0) car.setId(1);
-        else car.setId(count + 1);
+        if (car.getRentCompany() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "RentCompany not found, FUCK YOU");
+        }
+        List<Car> carsFromRepository = carRepository.findAll();
+        if (carsFromRepository.size() == 0) car.setId(1);
+        else car.setId(carsFromRepository.get(carsFromRepository.size() - 1).getId() + 1);
 
         return carRepository.save(car);
     }
