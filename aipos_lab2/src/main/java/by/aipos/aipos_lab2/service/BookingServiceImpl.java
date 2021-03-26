@@ -57,4 +57,12 @@ public class BookingServiceImpl implements BookingService {
     public void dropById(int id) {
         bookingRepository.deleteById(id);
     }
+
+    @Override
+    public Booking updateBookingById(Booking booking, int id) {
+        if (bookingRepository.findById(id).isEmpty()) return null;
+        booking.setId(id);
+        bookingRepository.save(booking);
+        return booking;
+    }
 }

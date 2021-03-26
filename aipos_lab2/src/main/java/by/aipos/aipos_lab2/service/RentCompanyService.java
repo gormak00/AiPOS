@@ -12,4 +12,5 @@ public interface RentCompanyService {
     List<RentCompany> getAllRentCompanies();
 
     void dropRentCompanyById(int id);
+    RentCompany updateRentCompanyById(RentCompany rentCompany, int id);
 }

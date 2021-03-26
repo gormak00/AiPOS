@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
-public class CarMappingImpl implements CarMapping {
+public class CarMapperImpl implements CarMapper {
     @Autowired
     RentCompanyRepository rentCompanyRepository;
 

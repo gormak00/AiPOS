@@ -35,7 +35,7 @@ public class ClientController {
     public String addClient(@Valid @RequestBody ClientDto clientDto, Model model) {
         Client client = ClientMapper.toClient(clientDto);
         model.addAttribute("client", clientService.addClient(client));
-        return "clientWelcomePage";
+        return "clientAddPage";
     }
 
     @DeleteMapping(value = "/client/{id}")
@@ -45,8 +45,10 @@ public class ClientController {
     }
 
     @PutMapping(value = "/client/{id}")
-    public ResponseEntity<?> updateClientById(@PathVariable(name = "id") int id, @Valid @RequestBody ClientDto clientDto) {
+    public String updateClientById(@PathVariable(name = "id") int id, @Valid @RequestBody ClientDto clientDto, Model model) {
         Client client = ClientMapper.toClient(clientDto);
-        return new ResponseEntity(clientService.updateClientById(client, id), HttpStatus.OK);
+        model.addAttribute("client", clientService.updateClientById(client, id));
+        //return new ResponseEntity(clientService.updateClientById(client, id), HttpStatus.OK);
+        return "clientUpdatePage";
     }
 }

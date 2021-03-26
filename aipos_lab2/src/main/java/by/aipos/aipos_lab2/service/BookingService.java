@@ -12,4 +12,6 @@ public interface BookingService {
     List<Booking> getAllBookings();
 
     void dropById(int id);
+
+    Booking updateBookingById(Booking booking, int id);
 }

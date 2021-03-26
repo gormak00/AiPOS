@@ -12,4 +12,6 @@ public interface CarService {
     List<Car> getAllCars();
 
     void dropCarById(int id);
+
+    Car updateCarById(Car car, int id);
 }

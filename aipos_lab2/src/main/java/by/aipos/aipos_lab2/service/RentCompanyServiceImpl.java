@@ -36,4 +36,12 @@ public class RentCompanyServiceImpl implements RentCompanyService {
     public void dropRentCompanyById(int id) {
         rentCompanyRepository.deleteById(id);
     }
+
+    @Override
+    public RentCompany updateRentCompanyById(RentCompany rentCompany, int id) {
+        if (rentCompanyRepository.findById(id).isEmpty()) return null;
+        rentCompany.setId(id);
+        rentCompanyRepository.save(rentCompany);
+        return rentCompany;
+    }
 }

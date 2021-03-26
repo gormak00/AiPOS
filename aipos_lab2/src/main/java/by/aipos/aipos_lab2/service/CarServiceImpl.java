@@ -44,4 +44,14 @@ public class CarServiceImpl implements CarService {
     public void dropCarById(int id) {
         carRepository.deleteById(id);
     }
+
+    @Override
+    public Car updateCarById(Car car, int id) {
+        if (carRepository.findById(id).isEmpty()) return null;
+        car.setId(id);
+        carRepository.save(car);
+        return car;
+    }
+
+
 }

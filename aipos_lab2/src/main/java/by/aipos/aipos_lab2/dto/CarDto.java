@@ -13,12 +13,15 @@ public class CarDto {
     @NotNull(message = "Empty number field")
     @Size(message = "Number is too long (max = 8)", max = 8) //format: "1234AA-7"
     private String number;
+
     @NotNull(message = "Empty model field")
     @Size(message = "Model is too long (min = 1, max = 25)", min = 1, max = 25)
     private String model;
+
     @NotNull(message = "Empty nameOfRentCompany field")
     @Size(message = "NameOfRentCompany is too long (min = 1, max = 25)", min = 1, max = 25)
     private String nameOfRentCompany;
+
     @NotNull(message = "Empty rented field")
     boolean rented;
 }

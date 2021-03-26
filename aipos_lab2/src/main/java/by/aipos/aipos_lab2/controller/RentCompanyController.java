@@ -41,4 +41,11 @@ public class RentCompanyController {
         rentCompanyService.dropRentCompanyById(id);
         return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/rentCompany/{id}")
+    public String updateRentCompaneById(@PathVariable(name = "id") int id, @Valid @RequestBody RentCompanyDto rentCompanyDto, Model model){
+        RentCompany rentCompany = RentCompanyMapper.toRentCompany(rentCompanyDto);
+        model.addAttribute("rentCompany", rentCompanyService.updateRentCompanyById(rentCompany, id));
+        return "rentCompanyUpdatePage";
+    }
 }

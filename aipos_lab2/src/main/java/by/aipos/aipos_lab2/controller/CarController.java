@@ -1,7 +1,8 @@
 package by.aipos.aipos_lab2.controller;
 
 import by.aipos.aipos_lab2.dto.CarDto;
-import by.aipos.aipos_lab2.dto.CarMappingImpl;
+import by.aipos.aipos_lab2.dto.CarMapper;
+import by.aipos.aipos_lab2.dto.CarMapperImpl;
 import by.aipos.aipos_lab2.model.Car;
 import by.aipos.aipos_lab2.service.CarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CarController {
     @Autowired
     CarServiceImpl carService;
     @Autowired
-    CarMappingImpl carMapping;
+    CarMapperImpl carMapper;
 
     @GetMapping(value = "/cars")
     public ResponseEntity<List<Car>> allCars() {
@@ -34,7 +35,7 @@ public class CarController {
 
     @PostMapping(value = "/car")
     public String addCar(@Valid @RequestBody CarDto carDto, Model model) {
-        Car car = carMapping.toCar(carDto);
+        Car car = carMapper.toCar(carDto);
         model.addAttribute("car", carService.addCar(car));
         return "carAddPage";
     }
@@ -43,5 +44,12 @@ public class CarController {
     public ResponseEntity<?> dropCarById(@PathVariable(name = "id") int id) {
         carService.dropCarById(id);
         return new ResponseEntity(carService.getAllCars(), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/car/{id}")
+    public String updateCarById(@PathVariable(name = "id") int id, @Valid @RequestBody CarDto carDto, Model model){
+        Car car = carMapper.toCar(carDto);
+        model.addAttribute("car", carService.updateCarById(car, id));
+        return "carUpdatePage";
     }
 }
