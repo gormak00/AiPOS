@@ -20,6 +20,13 @@ public class ClientController {
     @Autowired
     ClientServiceImpl clientService;
 
+    @GetMapping(value = "/client")
+    public String showAddPersonPage(Model model) {
+        ClientDto clientDto = new ClientDto();
+        model.addAttribute("clientDto", clientDto);
+        return "start/clientAddPage";
+    }
+
     @GetMapping(value = "/clients")
     public ResponseEntity<List<Client>> allUsers() {
         return new ResponseEntity(clientService.getAllClients(), HttpStatus.OK);
@@ -32,10 +39,11 @@ public class ClientController {
     }
 
     @PostMapping(value = "/client")
-    public String addClient(@Valid @RequestBody ClientDto clientDto, Model model) {
+    public String addClient(@Valid @ModelAttribute("clientDto") ClientDto clientDto, Model model) {
         Client client = ClientMapper.toClient(clientDto);
         model.addAttribute("client", clientService.addClient(client));
-        return "clientAddPage";
+        //model.addAttribute("errorMessage", errorMessage);
+        return "final/clientAddPageFinal";
     }
 
     @DeleteMapping(value = "/client/{id}")
