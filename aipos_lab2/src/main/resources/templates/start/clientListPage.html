@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client List</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Client List</h1>
+<br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone number</th>
+        </tr>
+        <tr th:each ="client : ${clients}">
+            <td th:utext="${client.id}">...</td>
+            <td th:utext="${client.name}">...</td>
+            <td th:utext="${client.phoneNumber}">...</td>
+        </tr>
+    </table>
+</div>
+
+<form th:action="@{/client/{id}}"
+      th:object="${clientDto}" method="POST">
+    Укажите клиента, с которым хотите работать:&nbsp;
+    <select name="clientId" id="client">
+        <tr th:each ="client : ${clients}">
+            <option value="${client.id}" th:utext="${client.name}"></option>
+        </tr>
+    </select>
+    <br/><br/>
+    <a href="client/{id}" type="submit" class="btn">getClient</a>
+    <input type="submit" class="btn" value="kek" />
+</form>
+
+</body>
+</html>
