@@ -3,6 +3,8 @@ package by.aipos.aipos_lab2.controller;
 import by.aipos.aipos_lab2.dto.*;
 import by.aipos.aipos_lab2.model.Booking;
 import by.aipos.aipos_lab2.service.BookingServiceImpl;
+import by.aipos.aipos_lab2.service.CarServiceImpl;
+import by.aipos.aipos_lab2.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,41 +21,56 @@ public class BookingController {
     @Autowired
     BookingServiceImpl bookingService;
     @Autowired
+    CarServiceImpl carService;
+    @Autowired
+    ClientServiceImpl clientService;
+    @Autowired
     BookingMapperImpl bookingMapper;
 
     @GetMapping(value = "/bookings")
-    public ResponseEntity<List<Booking>> allBookings() {
-        return new ResponseEntity(bookingService.getAllBookings(), HttpStatus.OK);
+    public String allBookings(Model model) {
+        model.addAttribute("bookings", bookingService.getAllBookings());
+        BookingDto bookingDto = new BookingDto();
+        model.addAttribute("bookingDto", bookingDto);
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
+        return "start/bookingListPage";
     }
 
-    @GetMapping(value = "/booking/{id}")
-    public ResponseEntity<List<Booking>> getBookingById(@PathVariable(name = "id") int id) {
-        return new ResponseEntity(bookingService.getBookingById(id), HttpStatus.OK);
+    @GetMapping(value = "/booking")
+    public String getBookingById(@RequestParam(value = "id", required = true) int id, Model model) {
+        model.addAttribute("booking", bookingService.getBookingById(id));
+        return "final/bookingGetPageFinal";
+    }
+
+    @GetMapping(value = "/addBooking")
+    public String showAddPersonPage(Model model) {
+        BookingDto bookingDto = new BookingDto();
+        model.addAttribute("bookingDto", bookingDto);
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("cars", carService.getAllCars());
+        return "start/bookingAddPage";
     }
 
     @PostMapping(value = "/booking")
-    public String addBooking(@Valid @RequestBody BookingDto bookingDto, Model model) {
+    public String addBooking(@Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
         Booking booking = bookingMapper.toBooking(bookingDto);
         model.addAttribute("booking", bookingService.addBooking(booking));
 
-        return "bookingAddPage";
-        /*return bookingService.addBooking(booking) != null
-                ? new ResponseEntity(bookingService.getAllBookings(), HttpStatus.CREATED)
-                : new ResponseEntity(HttpStatus.BAD_REQUEST);*/
+        return "final/bookingAddPageFinal";
     }
 
-    @DeleteMapping(value = "/booking/{id}")
-    public ResponseEntity<?> dropBookingById(@PathVariable(name = "id") int id) {
+    @PostMapping(value = "/deleteBooking")
+    public ResponseEntity<?> dropBookingById(@Valid @ModelAttribute("id") int id) {
         bookingService.dropById(id);
         return new ResponseEntity(bookingService.getAllBookings(), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/booking/{id}")
-    public String updateBookingById(@PathVariable(name = "id") int id, @Valid @RequestBody BookingDto bookingDto, Model model) {
+    @PostMapping(value = "/updateBooking")
+    public String updateBookingById(@Valid @ModelAttribute("id") int id, @Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
         Booking booking = bookingMapper.toBooking(bookingDto);
         model.addAttribute("booking", bookingService.updateBookingById(booking, id));
-        //return new ResponseEntity(bookingService.updateBookingById(booking, id), HttpStatus.OK);
-        return "bookingUpdatePage";
+        return "final/bookingUpdatePageFinal";
     }
 
 }

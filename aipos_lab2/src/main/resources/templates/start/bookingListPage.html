@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking List</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Booking List</h1>
+<br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Сlient name</th>
+            <th>Сar number</th>
+            <th>Сar model</th>
+            <th>Start date</th>
+            <th>End date</th>
+        </tr>
+        <tr th:each ="booking : ${bookings}">
+            <td th:utext="${booking.id}">...</td>
+            <td th:utext="${booking.client.name}">...</td>
+            <td th:utext="${booking.car.number}">...</td>
+            <td th:utext="${booking.car.model}">...</td>
+            <td th:utext="${booking.dateStart}">...</td>
+            <td th:utext="${booking.dateEnd}">...</td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<form th:action="@{/booking}" method="GET">
+    Укажите ID брони, которую хотите открыть: <br/>
+    <input type="text" th:name="id"/>  <br/>
+    <input type="submit" class="btn" th:value="Открыть"/>
+</form>
+<br/><br/>
+
+<form th:action="@{/updateBooking}" th:object="${bookingDto}" method="POST">
+    Укажите ID брони, которую хотите изменить: <br/>
+    <input type="text" th:name="id"/>
+    <br/>
+    Client ID (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{clientId}" />
+    <br/>
+    Car ID (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{carId}" />
+    <br/>
+    Start date (format: 2021-12-30) (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{dateStart}" />   <!--format "2021-12-30"-->
+    <br/>
+    End date (format: 2021-12-30) (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{dateEnd}" />     <!--format "2021-12-30"-->
+    <br/>
+    <input type="submit" class="btn" th:value="Изменить"/>
+</form>
+<br/><br/>
+
+<form th:action="@{/deleteBooking}" method="POST">
+    Укажите ID брони, которую хотите удалить: <br/>
+    <input type="text" th:name="id"/>  <br/>
+    <input type="submit" class="btn" th:value="Удалить"/>
+</form>
+
+<br/>
+<div>
+    <table border="2">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone number</th>
+        </tr>
+        <tr th:each ="client : ${clients}">
+            <td th:utext="${client.id}">...</td>
+            <td th:utext="${client.name}">...</td>
+            <td th:utext="${client.phoneNumber}">...</td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<div>
+    <table border="3">
+        <tr>
+            <th>ID</th>
+            <th>Model</th>
+            <th>RentCompany name</th>
+            <th>Is rented</th>
+        </tr>
+        <tr th:each ="car : ${cars}">
+            <td th:utext="${car.id}">...</td>
+            <td th:utext="${car.model}">...</td>
+            <td th:utext="${car.rentCompany.name}">...</td>
+            <td th:utext="${car.rented}">...</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

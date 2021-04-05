@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a booking</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Create a booking:</h1>
+
+<form th:action="@{/booking}"
+      th:object="${bookingDto}" method="POST">
+    Client ID:
+    <input type="text" th:field="*{clientId}" />
+    <br/>
+    Car ID:
+    <input type="text" th:field="*{carId}" />
+    <br/>
+    Start date (format: 2021-12-30):
+    <input type="text" th:field="*{dateStart}" />   <!--format "2021-12-30"-->
+    <br/>
+    End date (format: 2021-12-30):
+    <input type="text" th:field="*{dateEnd}" />     <!--format "2021-12-30"-->
+    <br/>
+    <input type="submit" class="btn" value="Add" />
+</form>
+
+<br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone number</th>
+        </tr>
+        <tr th:each ="client : ${clients}">
+            <td th:utext="${client.id}">...</td>
+            <td th:utext="${client.name}">...</td>
+            <td th:utext="${client.phoneNumber}">...</td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<div>
+    <table border="2">
+        <tr>
+            <th>ID</th>
+            <th>Model</th>
+            <th>RentCompany name</th>
+            <th>Is rented</th>
+        </tr>
+        <tr th:each ="car : ${cars}">
+            <td th:utext="${car.id}">...</td>
+            <td th:utext="${car.model}">...</td>
+            <td th:utext="${car.rentCompany.name}">...</td>
+            <td th:utext="${car.rented}">...</td>
+        </tr>
+    </table>
+</div>
+<!--
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+    ...
+</div>-->
+
+</body>
+</html>
