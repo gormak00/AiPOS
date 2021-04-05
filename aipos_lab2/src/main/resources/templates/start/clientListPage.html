@@ -10,7 +10,7 @@
 <h1>Client List</h1>
 <br/>
 <div>
-    <table border="1" size="3">
+    <table border="1">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -24,32 +24,45 @@
     </table>
 </div>
 
+<br/>
+
 <form th:action="@{/client}" method="GET">
-    Укажите ID клиента, которого хотите открыть:&nbsp<br/>
-    <input type="text" th:name="id"/>
+    Укажите ID клиента, которого хотите открыть: <br/>
+    <input type="text" th:name="id"/>  <br/>
     <input type="submit" class="btn" th:value="Открыть"/>
 </form>
 <br/><br/>
-<form th:action="@{/client}" method="PUT">
-    Укажите ID клиента, которого хотите изменить:&nbsp<br/>
+
+<form th:action="@{/updateClient}" th:object="${clientDto}" method="POST">
+    Укажите ID клиента, которого хотите изменить: <br/>
     <input type="text" th:name="id"/>
+    <br/>
+    Введите его новое имя (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{name}" />
+    <br/>
+    Введите его новый номер телефона (P.S. можете его оставить тем же): <br/>
+    <input type="text" th:field="*{phoneNumber}" />
+    <br/>
     <input type="submit" class="btn" th:value="Изменить"/>
 </form>
 <br/><br/>
-<form th:action="@{/client}" method="DELETE">
+
+<form th:action="@{/deleteClient}" method="POST">
     Укажите ID клиента, которого хотите удалить:&nbsp<br/>
-    <input type="text" th:name="id"/>
+    <input type="text" th:name="id"/>  <br/>
     <input type="submit" class="btn" th:value="Удалить"/>
 </form>
-<br/><br/>
+
+
+<!--<br/><br/>
 <form th:action="@{/client}" method="GET">
-    Укажите ID клиента, с которым хотите работать:&nbsp<br/>
+    Укажите клиента, которого хотите открыть:&nbsp<br/>
     <select th:name="id">
         <tr th:each ="client : ${clients}">
             <option value="${client.id}" th:utext="${client.name}"></option>
         </tr>
     </select>
     <input type="submit" class="btn" th:value="Открыть" />
-</form>
+</form>-->
 </body>
 </html>
