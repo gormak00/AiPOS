@@ -24,8 +24,8 @@ public class CarServiceImpl implements CarService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "RentCompany not found, FUCK YOU");
         }
         List<Car> carsFromRepository = carRepository.findAll();
-        if (carsFromRepository.size() == 0) car.setId(1);
-        else car.setId(carsFromRepository.get(carsFromRepository.size() - 1).getId() + 1);
+        if (carsFromRepository.size() == 0) {car.setId(1);}
+        else {car.setId(carsFromRepository.get(carsFromRepository.size() - 1).getId() + 1);}
 
         return carRepository.save(car);
     }

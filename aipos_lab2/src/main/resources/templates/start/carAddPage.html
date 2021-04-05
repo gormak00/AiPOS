@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a car</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Create a car:</h1>
+
+<form th:action="@{/car}"
+      th:object="${carDto}" method="POST">
+    Number:
+    <input type="text" th:field="*{number}" />
+    <br/>
+    Model:
+    <input type="text" th:field="*{model}" />
+    <br/>
+    Rent company:
+    <input type="text" th:field="*{nameOfRentCompany}" />
+    <br/>
+    <input type="submit" class="btn" value="Add" />
+</form>
+
+<br/>
+
+</body>
+</html>

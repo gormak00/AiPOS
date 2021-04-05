@@ -2,6 +2,7 @@ package by.aipos.aipos_lab2.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Setter
 @Getter
+@NoArgsConstructor
 public class CarDto {
     @NotNull(message = "Empty number field")
     @Size(message = "Number is too long (max = 8)", max = 8) //format: "1234AA-7"

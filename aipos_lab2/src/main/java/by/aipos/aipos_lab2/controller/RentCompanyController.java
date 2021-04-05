@@ -20,32 +20,44 @@ public class RentCompanyController {
     RentCompanyServiceImpl rentCompanyService;
 
     @GetMapping(value = "/rentCompanies")
-    public ResponseEntity<List<RentCompany>> allRentCompanies() {
-        return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.OK);
+    public String allRentCompanies(Model model) {
+        model.addAttribute("rentCompanies", rentCompanyService.getAllRentCompanies());
+        RentCompanyDto rentCompanyDto = new RentCompanyDto();
+        model.addAttribute("rentCompanyDto", rentCompanyDto);
+        return "start/rentCompanyListPage";
     }
 
-    @GetMapping(value = "/rentCompany/{id}")
-    public ResponseEntity<List<RentCompany>> getRentCompanyById(@PathVariable(name = "id") int id) {
-        return new ResponseEntity(rentCompanyService.getRentCompanyById(id), HttpStatus.OK);
+    @GetMapping(value = "/rentCompany")
+    public String getRentCompanyById(@RequestParam(value = "id", required = true) int id, Model model) {
+        model.addAttribute("rentCompany", rentCompanyService.getRentCompanyById(id));
+        return "final/rentCompanyGetPageFinal";
+    }
+
+    @GetMapping(value = "/addRentCompany")
+    public String showAddRentCompanyPage(Model model){
+        RentCompanyDto rentCompanyDto = new RentCompanyDto();
+        model.addAttribute("rentCompanyDto", rentCompanyDto);
+        return "start/rentCompanyAddPage";
     }
 
     @PostMapping(value = "/rentCompany")
-    public String addRentCompany(@Valid @RequestBody RentCompanyDto rentCompanyDto, Model model) {
+    public String addRentCompany(@Valid @ModelAttribute("rentCompanyDto") RentCompanyDto rentCompanyDto, Model model) {
         RentCompany rentCompany = RentCompanyMapper.toRentCompany(rentCompanyDto);
         model.addAttribute("rentCompany", rentCompanyService.addRentCompany(rentCompany));
-        return "rentCompanyAddPage";
+        return "final/rentCompanyAddPageFinal";
     }
 
-    @DeleteMapping(value = "/rentCompany/{id}")
-    public ResponseEntity<?> dropRentCompanyById(@PathVariable(name = "id") int id) {
+    @PostMapping(value = "/deleteRentCompany")
+    public String dropRentCompanyById(@RequestParam(value = "id", required = true) int id, Model model) {
+        model.addAttribute("rentCompany", rentCompanyService.getRentCompanyById(id));
         rentCompanyService.dropRentCompanyById(id);
-        return new ResponseEntity(rentCompanyService.getAllRentCompanies(), HttpStatus.OK);
+        return "final/rentCompanyDropByIdPageFinal";
     }
 
-    @PutMapping(value = "/rentCompany/{id}")
-    public String updateRentCompaneById(@PathVariable(name = "id") int id, @Valid @RequestBody RentCompanyDto rentCompanyDto, Model model){
+    @PostMapping(value = "/updateRentCompany")
+    public String updateRentCompaneById(@RequestParam(value = "id", required = true) int id, @Valid @ModelAttribute RentCompanyDto rentCompanyDto, Model model){
         RentCompany rentCompany = RentCompanyMapper.toRentCompany(rentCompanyDto);
         model.addAttribute("rentCompany", rentCompanyService.updateRentCompanyById(rentCompany, id));
-        return "rentCompanyUpdatePage";
+        return "final/rentCompanyUpdatePageFinal";
     }
 }

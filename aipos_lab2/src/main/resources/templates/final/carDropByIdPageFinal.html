@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
-<p th:text="'Car ' + ${car.model} +  ' ' + ${car.number}  + ' was DELETED'"></p>
-
+<p th:text="'Car ' + ${car.model} +  ' ' + ${car.number} + ' ' + ${car.rentCompany.name} + ' was DELETED'"></p>
+<br/>
+<a href="welcome" class="btn">Return to welcome page</a>
 </body>
 </html>
