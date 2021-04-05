@@ -26,13 +26,13 @@ public class ClientController {
         return "start/clientListPage";
     }
 
-    @GetMapping(value = "/client/{id}")
-    public String getClientById(@PathVariable(name = "id") Integer id, Model model) {
+    @GetMapping(value = "/client")
+    public String getClientById(@RequestParam(value = "id", required = true) int id, Model model) {
         model.addAttribute("client", clientService.getClientById(id));
-        return "clientWelcomePage";
+        return "final/clientWelcomePageFinal";
     }
 
-    @GetMapping(value = "/client")
+    @GetMapping(value = "/addClient")
     public String showAddPersonPage(Model model) {
         ClientDto clientDto = new ClientDto();
         model.addAttribute("clientDto", clientDto);
@@ -47,17 +47,23 @@ public class ClientController {
         return "final/clientAddPageFinal";
     }
 
-    @DeleteMapping(value = "/client/{id}")
-    public ResponseEntity<?> dropClientById(@PathVariable(name = "id") int id) {
+    @DeleteMapping(value = "/client")
+    public ResponseEntity<?> dropClientById(@RequestParam(value = "id", required = true) int id) {
         clientService.dropClientById(id);
         return new ResponseEntity(clientService.getAllClients(), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/client/{id}")
-    public String updateClientById(@PathVariable(name = "id") int id, @Valid @RequestBody ClientDto clientDto, Model model) {
+    @PutMapping(value = "/client")
+    public String updateClientById(@RequestParam(value = "id", required = true) int id, @Valid @ModelAttribute("clientDto") ClientDto clientDto, Model model) {
         Client client = ClientMapper.toClient(clientDto);
         model.addAttribute("client", clientService.updateClientById(client, id));
         //return new ResponseEntity(clientService.updateClientById(client, id), HttpStatus.OK);
         return "clientUpdatePage";
+    }
+
+    @GetMapping(value = "/clientqw")
+    public String testMethod(Model model) {
+        int clientId = (int) model.getAttribute("clientId");
+        return "redirect:/client/" + clientId;
     }
 }

@@ -10,7 +10,7 @@
 <h1>Client List</h1>
 <br/>
 <div>
-    <table border="1">
+    <table border="1" size="3">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -24,18 +24,32 @@
     </table>
 </div>
 
-<form th:action="@{/client/{id}}"
-      th:object="${clientDto}" method="POST">
-    Укажите клиента, с которым хотите работать:&nbsp;
-    <select name="clientId" id="client">
+<form th:action="@{/client}" method="GET">
+    Укажите ID клиента, которого хотите открыть:&nbsp<br/>
+    <input type="text" th:name="id"/>
+    <input type="submit" class="btn" th:value="Открыть"/>
+</form>
+<br/><br/>
+<form th:action="@{/client}" method="PUT">
+    Укажите ID клиента, которого хотите изменить:&nbsp<br/>
+    <input type="text" th:name="id"/>
+    <input type="submit" class="btn" th:value="Изменить"/>
+</form>
+<br/><br/>
+<form th:action="@{/client}" method="DELETE">
+    Укажите ID клиента, которого хотите удалить:&nbsp<br/>
+    <input type="text" th:name="id"/>
+    <input type="submit" class="btn" th:value="Удалить"/>
+</form>
+<br/><br/>
+<form th:action="@{/client}" method="GET">
+    Укажите ID клиента, с которым хотите работать:&nbsp<br/>
+    <select th:name="id">
         <tr th:each ="client : ${clients}">
             <option value="${client.id}" th:utext="${client.name}"></option>
         </tr>
     </select>
-    <br/><br/>
-    <a href="client/{id}" type="submit" class="btn">getClient</a>
-    <input type="submit" class="btn" value="kek" />
+    <input type="submit" class="btn" th:value="Открыть" />
 </form>
-
 </body>
 </html>
