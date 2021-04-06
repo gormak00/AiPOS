@@ -27,30 +27,30 @@
 <br/>
 
 <form th:action="@{/client}" method="GET">
-    Укажите ID клиента, которого хотите открыть: <br/>
+    Select ID of client you want to open: <br/>
     <input type="text" th:name="id"/>  <br/>
-    <input type="submit" class="btn" th:value="Открыть"/>
+    <input type="submit" class="btn" th:value="Open"/>
 </form>
 <br/><br/>
 
 <form th:action="@{/updateClient}" th:object="${clientDto}" method="POST">
-    Укажите ID клиента, которого хотите изменить: <br/>
+    Select ID of client you want to change: <br/>
     <input type="text" th:name="id"/>
     <br/>
-    Введите его новое имя (P.S. можете его оставить тем же): <br/>
+    Enter new name (P.S. you may leave it the same): <br/>
     <input type="text" th:field="*{name}" />
     <br/>
-    Введите его новый номер телефона (P.S. можете его оставить тем же): <br/>
+    Enter new phoneNumber (P.S. you may leave it the same): <br/>
     <input type="text" th:field="*{phoneNumber}" />
     <br/>
-    <input type="submit" class="btn" th:value="Изменить"/>
+    <input type="submit" class="btn" th:value="Change"/>
 </form>
 <br/><br/>
 
 <form th:action="@{/deleteClient}" method="POST">
-    Укажите ID клиента, которого хотите удалить:&nbsp<br/>
+    Select ID of client you want to delete: <br/>
     <input type="text" th:name="id"/>  <br/>
-    <input type="submit" class="btn" th:value="Удалить"/>
+    <input type="submit" class="btn" th:value="Delete"/>
 </form>
 
 

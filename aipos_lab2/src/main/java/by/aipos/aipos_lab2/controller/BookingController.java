@@ -6,14 +6,11 @@ import by.aipos.aipos_lab2.service.BookingServiceImpl;
 import by.aipos.aipos_lab2.service.CarServiceImpl;
 import by.aipos.aipos_lab2.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class BookingController {
@@ -61,9 +58,10 @@ public class BookingController {
     }
 
     @PostMapping(value = "/deleteBooking")
-    public ResponseEntity<?> dropBookingById(@Valid @ModelAttribute("id") int id) {
+    public String dropBookingById(@ModelAttribute("id") @Valid int id, Model model) {
+        model.addAttribute("booking", bookingService.getBookingById(id));
         bookingService.dropById(id);
-        return new ResponseEntity(bookingService.getAllBookings(), HttpStatus.OK);
+        return "final/bookingDropByIdPageFinal";
     }
 
     @PostMapping(value = "/updateBooking")

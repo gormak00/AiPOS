@@ -52,16 +52,16 @@ public class ClientController {
     }
 
     @PostMapping(value = "/deleteClient")
-    public ResponseEntity<?> dropClientById(@RequestParam(value = "id", required = true) int id) {
+    public String dropClientById(@RequestParam(value = "id", required = true) int id, Model model) {
+        model.addAttribute("client", clientService.getClientById(id));
         clientService.dropClientById(id);
-        return new ResponseEntity(clientService.getAllClients(), HttpStatus.OK);
+        return "final/clientDropByIdPageFinal";
     }
 
     @PostMapping(value = "/updateClient")
     public String updateClientById(@RequestParam(value = "id", required = true) int id, @Valid @ModelAttribute("clientDto") ClientDto clientDto, Model model) {
         Client client = ClientMapper.toClient(clientDto);
         model.addAttribute("client", clientService.updateClientById(client, id));
-        //return new ResponseEntity(clientService.updateClientById(client, id), HttpStatus.OK);
         return "final/clientUpdatePageFinal";
     }
 }
