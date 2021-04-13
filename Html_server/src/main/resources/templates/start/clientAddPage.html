@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a client</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Create a client:</h1>
+
+<form th:action="@{/client}"
+      th:object="${clientDto}" method="POST">
+    Full name:
+    <input type="text" th:field="*{name}" />
+    <br/>
+    Phone number:
+    <input type="text" th:field="*{phoneNumber}" />
+    <br/>
+    <input type="submit" class="btn" value="Add" />
+</form>
+
+<br/>
+<!--
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+    ...
+</div>-->
+
+</body>
+</html>

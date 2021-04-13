@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars List</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Cars List</h1>
+<br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Number</th>
+            <th>Model</th>
+            <th>RentCompany</th>
+            <th>IsRented</th>
+        </tr>
+        <tr th:each ="car : ${cars}">
+            <td th:utext="${car.id}">...</td>
+            <td th:utext="${car.number}">...</td>
+            <td th:utext="${car.model}">...</td>
+            <td th:utext="${car.rentCompany.name}">...</td>
+            <td th:utext="${car.rented}">...</td>
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<form th:action="@{/car}" method="GET">
+    Select ID of Car you want to open:<br/>
+    <input type="text" th:name="id"/>  <br/>
+    <input type="submit" class="btn" th:value="Open"/>
+</form>
+<br/><br/>
+
+<form th:action="@{/updateCar}" th:object="${carDto}" method="POST">
+    Select ID of Car you want to change: <br/>
+    <input type="text" th:name="id"/>
+    <br/>
+    Enter new number (P.S. you may leave it the same): <br/>
+    <input type="text" th:field="*{number}" />
+    <br/>
+    Enter new model (P.S. you may leave it the same): <br/>
+    <input type="text" th:field="*{model}" />
+    <br/>
+    Enter new nameOfRentCompany (P.S. you may leave it the same): <br/>
+    <input type="text" th:field="*{nameOfRentCompany}" />
+    <br/>
+    <input type="submit" class="btn" th:value="Change"/>
+</form>
+<br/><br/>
+
+<form th:action="@{/deleteCar}" method="POST">
+    Select ID of Car you want to delete:&nbsp<br/>
+    <input type="text" th:name="id"/>  <br/>
+    <input type="submit" class="btn" th:value="Delete"/>
+</form>
+
+
+<!--<br/><br/>
+<form th:action="@{/client}" method="GET">
+    Укажите клиента, которого хотите открыть:&nbsp<br/>
+    <select th:name="id">
+        <tr th:each ="client : ${clients}">
+            <option value="${client.id}" th:utext="${client.name}"></option>
+        </tr>
+    </select>
+    <input type="submit" class="btn" th:value="Открыть" />
+</form>-->
+</body>
+</html>

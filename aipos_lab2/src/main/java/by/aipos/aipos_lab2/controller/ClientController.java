@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,19 +33,22 @@ public class ClientController {
         return "final/clientGetPageFinal";
     }
 
-    @GetMapping(value = "/addClient")
-    public String showAddPersonPage(Model model) {
-        ClientDto clientDto = new ClientDto();
+    /*@GetMapping(value = "/addClient")
+    public ClientDto showAddPersonPage(Model model) {
+        return new ClientDto();
+        *//*ClientDto clientDto = new ClientDto();
         model.addAttribute("clientDto", clientDto);
-        return "start/clientAddPage";
-    }
+        return "start/clientAddPage";*//*
+    }*/
 
     @PostMapping(value = "/client")
-    public String addClient(@Valid @ModelAttribute("clientDto") ClientDto clientDto, Model model) {
+    public ClientDto addClient(/*@Valid @ModelAttribute("clientDto") ClientDto clientDto,*/ Model model, @RequestBody ClientDto clientDto) {
         Client client = ClientMapper.toClient(clientDto);
-        model.addAttribute("client", clientService.addClient(client));
+        clientService.addClient(client);
+        return clientDto;
+        /*model.addAttribute("client", clientService.addClient(client));
         //model.addAttribute("errorMessage", errorMessage);
-        return "final/clientAddPageFinal";
+        return "final/clientAddPageFinal";*/
     }
 
     @PostMapping(value = "/deleteClient")
