@@ -22,8 +22,7 @@ public class ClientController {
     public String allUsers(Model model) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Client>> response = restTemplate.exchange("http://localhost:8080/clients",
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {
-                });
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {});
         List<Client> allClients = response.getBody();
         model.addAttribute("clients", allClients);
         model.addAttribute("clientDto", new ClientDto());

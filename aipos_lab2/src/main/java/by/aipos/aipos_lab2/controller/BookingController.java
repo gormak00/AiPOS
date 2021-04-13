@@ -1,18 +1,17 @@
 package by.aipos.aipos_lab2.controller;
 
-import by.aipos.aipos_lab2.dto.*;
+import by.aipos.aipos_lab2.dto.BookingDto;
+import by.aipos.aipos_lab2.dto.BookingMapperImpl;
 import by.aipos.aipos_lab2.model.Booking;
 import by.aipos.aipos_lab2.service.BookingServiceImpl;
 import by.aipos.aipos_lab2.service.CarServiceImpl;
 import by.aipos.aipos_lab2.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
-@Controller
+@RestController
 public class BookingController {
 
     @Autowired
@@ -25,50 +24,31 @@ public class BookingController {
     BookingMapperImpl bookingMapper;
 
     @GetMapping(value = "/bookings")
-    public String allBookings(Model model) {
-        model.addAttribute("bookings", bookingService.getAllBookings());
-        BookingDto bookingDto = new BookingDto();
-        model.addAttribute("bookingDto", bookingDto);
-        model.addAttribute("clients", clientService.getAllClients());
-        model.addAttribute("cars", carService.getAllCars());
-        return "start/bookingListPage";
+    public List<Booking> allBookings() {
+        return bookingService.getAllBookings();
     }
 
     @GetMapping(value = "/booking")
-    public String getBookingById(@RequestParam(value = "id", required = true) int id, Model model) {
-        model.addAttribute("booking", bookingService.getBookingById(id));
-        return "final/bookingGetPageFinal";
-    }
-
-    @GetMapping(value = "/addBooking")
-    public String showAddPersonPage(Model model) {
-        BookingDto bookingDto = new BookingDto();
-        model.addAttribute("bookingDto", bookingDto);
-        model.addAttribute("clients", clientService.getAllClients());
-        model.addAttribute("cars", carService.getAllCars());
-        return "start/bookingAddPage";
+    public Booking getBookingById(@RequestParam(value = "id", required = true) int id) {
+        return bookingService.getBookingById(id);
     }
 
     @PostMapping(value = "/booking")
-    public String addBooking(@Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
+    public Booking addBooking(@RequestBody BookingDto bookingDto) {
         Booking booking = bookingMapper.toBooking(bookingDto);
-        model.addAttribute("booking", bookingService.addBooking(booking));
-
-        return "final/bookingAddPageFinal";
+        return bookingService.addBooking(booking);
     }
 
     @PostMapping(value = "/deleteBooking")
-    public String dropBookingById(@ModelAttribute("id") @Valid int id, Model model) {
-        model.addAttribute("booking", bookingService.getBookingById(id));
+    public Booking dropBookingById(@RequestParam(value = "id", required = true) int id) {
+        Booking booking = bookingService.getBookingById(id);
         bookingService.dropById(id);
-        return "final/bookingDropByIdPageFinal";
+        return booking;
     }
 
     @PostMapping(value = "/updateBooking")
-    public String updateBookingById(@Valid @ModelAttribute("id") int id, @Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
+    public Booking updateBookingById(@RequestParam(value = "id", required = true) int id, @RequestBody BookingDto bookingDto) {
         Booking booking = bookingMapper.toBooking(bookingDto);
-        model.addAttribute("booking", bookingService.updateBookingById(booking, id));
-        return "final/bookingUpdatePageFinal";
+        return bookingService.updateBookingById(booking, id);
     }
-
 }

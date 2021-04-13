@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 public class CarController {
 
     @Autowired
@@ -24,11 +24,12 @@ public class CarController {
     CarMapperImpl carMapper;
 
     @GetMapping(value = "/cars")
-    public String allCars(Model model) {
+    public List<Car> allCars(Model model) {
+        return carService.getAllCars();/*
         model.addAttribute("cars", carService.getAllCars());
         CarDto carDto = new CarDto();
         model.addAttribute("carDto", carDto);
-        return "start/carListPage";
+        return "start/carListPage";*/
     }
 
     @GetMapping(value = "/car")
