@@ -5,63 +5,43 @@ import by.aipos.aipos_lab2.dto.ClientMapper;
 import by.aipos.aipos_lab2.model.Client;
 import by.aipos.aipos_lab2.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
-@Controller
+@RestController
 public class ClientController {
 
     @Autowired
     ClientServiceImpl clientService;
 
     @GetMapping(value = "/clients")
-    public String allUsers(Model model) {
-        model.addAttribute("clients", clientService.getAllClients());
-        ClientDto clientDto = new ClientDto();
-        model.addAttribute("clientDto", clientDto);
-        return "start/clientListPage";
+    public List<Client> allUsers() {
+        return clientService.getAllClients();
     }
 
     @GetMapping(value = "/client")
-    public String getClientById(@RequestParam(value = "id", required = true) int id, Model model) {
-        model.addAttribute("client", clientService.getClientById(id));
-        return "final/clientGetPageFinal";
+    public Client getClientById(@RequestParam(value = "id", required = true) int id) {
+        return clientService.getClientById(id);
     }
 
-    /*@GetMapping(value = "/addClient")
-    public ClientDto showAddPersonPage(Model model) {
-        return new ClientDto();
-        *//*ClientDto clientDto = new ClientDto();
-        model.addAttribute("clientDto", clientDto);
-        return "start/clientAddPage";*//*
-    }*/
-
     @PostMapping(value = "/client")
-    public ClientDto addClient(/*@Valid @ModelAttribute("clientDto") ClientDto clientDto,*/ Model model, @RequestBody ClientDto clientDto) {
+    public Client addClient(@RequestBody ClientDto clientDto) {
         Client client = ClientMapper.toClient(clientDto);
-        clientService.addClient(client);
-        return clientDto;
-        /*model.addAttribute("client", clientService.addClient(client));
-        //model.addAttribute("errorMessage", errorMessage);
-        return "final/clientAddPageFinal";*/
+        Client client1 = clientService.addClient(client);
+        return clientService.getClientById(client1.getId());
     }
 
     @PostMapping(value = "/deleteClient")
-    public String dropClientById(@RequestParam(value = "id", required = true) int id, Model model) {
-        model.addAttribute("client", clientService.getClientById(id));
+    public Client dropClientById(@RequestParam(value = "id", required = true) int id) {
+        Client client = clientService.getClientById(id);
         clientService.dropClientById(id);
-        return "final/clientDropByIdPageFinal";
+        return client;
     }
 
     @PostMapping(value = "/updateClient")
-    public String updateClientById(@RequestParam(value = "id", required = true) int id, @Valid @ModelAttribute("clientDto") ClientDto clientDto, Model model) {
+    public Client updateClientById(@RequestParam(value = "id", required = true) int id, @RequestBody ClientDto clientDto) {
         Client client = ClientMapper.toClient(clientDto);
-        model.addAttribute("client", clientService.updateClientById(client, id));
-        return "final/clientUpdatePageFinal";
+        return clientService.updateClientById(client, id);
     }
 }
