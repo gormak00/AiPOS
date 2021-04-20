@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  server:
+    container_name: car_rental_server_container
+    image: car_rental_server_image:latest
+    build: ./aipos_lab2
+    volumes:
+      - /tmp:/car_rental_data
+    ports:
+      - 8080:8080
+    depends_on:
+      - dbpostgresql
+      
+  client:
+    container_name: car_rental_client_server_container
+    image: car_rental_client_server_image:latest
+    build: ./Html_server
+    ports:
+      - 8090:8090
+    # Ключевое слово 'depends_on' позволяет указывать, должен ли сервис,
+    # прежде чем запуститься, ждать, когда будут готовы к работе другие сервисы.
+    # Нам нужно, чтобы сервис 'client' дождался бы готовности к работе сервиса 'server'.
+    depends_on:
+      - server
+      
+  dbpostgresql:
+    image: postgres
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=100001
+      - POSTGRES_USER=gormak
+      - POSTGRES_DB=car_rental
+    ports:
+      - 5432:5432
+
+volumes:
+   car_rental_data:
+   postgres_db:

@@ -21,7 +21,7 @@ public class ClientController {
     @GetMapping(value = "/clients")
     public String allUsers(Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Client>> response = restTemplate.exchange("http://localhost:8080/clients",
+        ResponseEntity<List<Client>> response = restTemplate.exchange("http://server:8080/clients",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {});
         List<Client> allClients = response.getBody();
         model.addAttribute("clients", allClients);
@@ -32,7 +32,7 @@ public class ClientController {
     @GetMapping(value = "/client")
     public String getClientById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8080/client?id=" + id,
+        ResponseEntity<Client> response = restTemplate.exchange("http://server:8080/client?id=" + id,
                 HttpMethod.GET, null, Client.class);
         Client client = response.getBody();
         model.addAttribute("client", client);
@@ -48,7 +48,7 @@ public class ClientController {
     @PostMapping(value = "/client")
     public String addClient(ClientDto clientDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8080/client",
+        ResponseEntity<Client> response = restTemplate.exchange("http://server:8080/client",
                 HttpMethod.POST, new HttpEntity<ClientDto>(clientDto), Client.class);
         Client client = response.getBody();
         model.addAttribute("client", client);
@@ -58,7 +58,7 @@ public class ClientController {
     @PostMapping(value = "/deleteClient")
     public String dropClientById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8080/deleteClient?id=" + id,
+        ResponseEntity<Client> response = restTemplate.exchange("http://server:8080/deleteClient?id=" + id,
                 HttpMethod.POST, null, Client.class);
         Client client = response.getBody();
         model.addAttribute("client", client);
@@ -68,7 +68,7 @@ public class ClientController {
     @PostMapping(value = "/updateClient")
     public String updateClientById(@RequestParam(value = "id", required = true) int id, ClientDto clientDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Client> response = restTemplate.exchange("http://localhost:8080/updateClient?id=" + id,
+        ResponseEntity<Client> response = restTemplate.exchange("http://server:8080/updateClient?id=" + id,
                 HttpMethod.POST, new HttpEntity<ClientDto>(clientDto), Client.class);
         Client client = response.getBody();
         model.addAttribute("client", client);

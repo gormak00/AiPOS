@@ -22,7 +22,7 @@ public class RentCompanyController {
     @GetMapping(value = "/rentCompanies")
     public String allRentCompanies(Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<RentCompany>> response = restTemplate.exchange("http://localhost:8080/rentCompanies",
+        ResponseEntity<List<RentCompany>> response = restTemplate.exchange("http://server:8080/rentCompanies",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<RentCompany>>() {});
         List<RentCompany> allRentCompanies = response.getBody();
         model.addAttribute("rentCompanies", allRentCompanies);
@@ -33,7 +33,7 @@ public class RentCompanyController {
     @GetMapping(value = "/rentCompany")
     public String getRentCompanyById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<RentCompany> response = restTemplate.exchange("http://localhost:8080/rentCompany?id=" + id,
+        ResponseEntity<RentCompany> response = restTemplate.exchange("http://server:8080/rentCompany?id=" + id,
                 HttpMethod.GET, null, RentCompany.class);
         RentCompany rentCompany = response.getBody();
         model.addAttribute("rentCompany", rentCompany);
@@ -49,7 +49,7 @@ public class RentCompanyController {
     @PostMapping(value = "/rentCompany")
     public String addRentCompany(RentCompanyDto rentCompanyDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<RentCompany> response = restTemplate.exchange("http://localhost:8080/rentCompany",
+        ResponseEntity<RentCompany> response = restTemplate.exchange("http://server:8080/rentCompany",
                 HttpMethod.POST, new HttpEntity<RentCompanyDto>(rentCompanyDto), RentCompany.class);
         RentCompany rentCompany = response.getBody();
         model.addAttribute("rentCompany", rentCompany);
@@ -59,7 +59,7 @@ public class RentCompanyController {
     @PostMapping(value = "/deleteRentCompany")
     public String dropRentCompanyById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<RentCompany> response = restTemplate.exchange("http://localhost:8080/deleteRentCompany?id=" + id,
+        ResponseEntity<RentCompany> response = restTemplate.exchange("http://server:8080/deleteRentCompany?id=" + id,
                 HttpMethod.POST, null, RentCompany.class);
         RentCompany rentCompany = response.getBody();
         model.addAttribute("rentCompany", rentCompany);
@@ -69,7 +69,7 @@ public class RentCompanyController {
     @PostMapping(value = "/updateRentCompany")
     public String updateRentCompanyById(@RequestParam(value = "id", required = true) int id, RentCompanyDto rentCompanyDto, Model model){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<RentCompany> response = restTemplate.exchange("http://localhost:8080/updateRentCompany?id=" + id,
+        ResponseEntity<RentCompany> response = restTemplate.exchange("http://server:8080/updateRentCompany?id=" + id,
                 HttpMethod.POST, new HttpEntity<RentCompanyDto>(rentCompanyDto), RentCompany.class);
         RentCompany rentCompany = response.getBody();
         model.addAttribute("rentCompany", rentCompany);

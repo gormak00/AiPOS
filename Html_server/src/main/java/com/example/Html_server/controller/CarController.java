@@ -21,7 +21,7 @@ public class CarController {
     @GetMapping(value = "/cars")
     public String allCars(Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Car>> response = restTemplate.exchange("http://localhost:8080/cars",
+        ResponseEntity<List<Car>> response = restTemplate.exchange("http://server:8080/cars",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Car>>() {});
         List<Car> allCars = response.getBody();
         model.addAttribute("cars", allCars);
@@ -32,7 +32,7 @@ public class CarController {
     @GetMapping(value = "/car")
     public String getCarById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Car> response = restTemplate.exchange("http://localhost:8080/car?id=" + id,
+        ResponseEntity<Car> response = restTemplate.exchange("http://server:8080/car?id=" + id,
                 HttpMethod.GET, null, Car.class);
         Car car = response.getBody();
         model.addAttribute("car", car);
@@ -48,7 +48,7 @@ public class CarController {
     @PostMapping(value = "/car")
     public String addCar(CarDto carDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Car> response = restTemplate.exchange("http://localhost:8080/car",
+        ResponseEntity<Car> response = restTemplate.exchange("http://server:8080/car",
                 HttpMethod.POST, new HttpEntity<CarDto>(carDto), Car.class);
         Car car = response.getBody();
         model.addAttribute("car", car);
@@ -58,7 +58,7 @@ public class CarController {
     @PostMapping(value = "/deleteCar")
     public String dropCarById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Car> response = restTemplate.exchange("http://localhost:8080/deleteCar?id=" + id,
+        ResponseEntity<Car> response = restTemplate.exchange("http://server:8080/deleteCar?id=" + id,
                 HttpMethod.POST, null, Car.class);
         Car car = response.getBody();
         model.addAttribute("car", car);
@@ -68,7 +68,7 @@ public class CarController {
     @PostMapping(value = "/updateCar")
     public String updateCarById(@RequestParam(value = "id", required = true) int id, CarDto carDto, Model model){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Car> response = restTemplate.exchange("http://localhost:8080/updateCar?id=" + id,
+        ResponseEntity<Car> response = restTemplate.exchange("http://server:8080/updateCar?id=" + id,
                 HttpMethod.POST, new HttpEntity<CarDto>(carDto), Car.class);
         Car car = response.getBody();
         model.addAttribute("car", car);

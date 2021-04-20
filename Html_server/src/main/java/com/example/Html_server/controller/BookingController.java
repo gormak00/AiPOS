@@ -27,19 +27,19 @@ public class BookingController {
         model.addAttribute("bookingDto", new BookingDto());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Booking>> responseForBookings = restTemplate.exchange("http://localhost:8080/bookings",
+        ResponseEntity<List<Booking>> responseForBookings = restTemplate.exchange("http://car_rental_server_image:8080/bookings",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Booking>>() {
                 });
         List<Booking> allBookings = responseForBookings.getBody();
         model.addAttribute("bookings", allBookings);
 
-        ResponseEntity<List<Client>> responseForClients = restTemplate.exchange("http://localhost:8080/clients",
+        ResponseEntity<List<Client>> responseForClients = restTemplate.exchange("http://car_rental_server_image:8080/clients",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {
                 });
         List<Client> allClients = responseForClients.getBody();
         model.addAttribute("clients", allClients);
 
-        ResponseEntity<List<Car>> responseForCars = restTemplate.exchange("http://localhost:8080/cars",
+        ResponseEntity<List<Car>> responseForCars = restTemplate.exchange("http://car_rental_server_image:8080/cars",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Car>>() {
                 });
         List<Car> allCars = responseForCars.getBody();
@@ -50,7 +50,7 @@ public class BookingController {
     @GetMapping(value = "/booking")
     public String getBookingById(@RequestParam(value = "id", required = true) int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Booking> response = restTemplate.exchange("http://localhost:8080/booking?id=" + id,
+        ResponseEntity<Booking> response = restTemplate.exchange("http://car_rental_server_image:8080/booking?id=" + id,
                 HttpMethod.GET, null, Booking.class);
         Booking booking = response.getBody();
         model.addAttribute("booking", booking);
@@ -62,13 +62,13 @@ public class BookingController {
         model.addAttribute("bookingDto", new BookingDto());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Client>> responseForClients = restTemplate.exchange("http://localhost:8080/clients",
+        ResponseEntity<List<Client>> responseForClients = restTemplate.exchange("http://car_rental_server_container:8080/clients",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Client>>() {
                 });
         List<Client> allClients = responseForClients.getBody();
         model.addAttribute("clients", allClients);
 
-        ResponseEntity<List<Car>> responseForCars = restTemplate.exchange("http://localhost:8080/cars",
+        ResponseEntity<List<Car>> responseForCars = restTemplate.exchange("http://car_rental_server_container:8080/cars",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<Car>>() {
                 });
         List<Car> allCars = responseForCars.getBody();
@@ -80,7 +80,7 @@ public class BookingController {
     @PostMapping(value = "/booking")
     public String addBooking(@Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Booking> response = restTemplate.exchange("http://localhost:8080/booking",
+        ResponseEntity<Booking> response = restTemplate.exchange("http://car_rental_server_container:8080/booking",
                 HttpMethod.POST, new HttpEntity<BookingDto>(bookingDto), Booking.class);
         Booking booking = response.getBody();
         model.addAttribute("booking", booking);
@@ -91,7 +91,7 @@ public class BookingController {
     @PostMapping(value = "/deleteBooking")
     public String dropBookingById(@ModelAttribute("id") @Valid int id, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Booking> response = restTemplate.exchange("http://localhost:8080/deleteBooking?id=" + id,
+        ResponseEntity<Booking> response = restTemplate.exchange("http://car_rental_server_container:8080/deleteBooking?id=" + id,
                 HttpMethod.POST, null, Booking.class);
         Booking booking = response.getBody();
         model.addAttribute("booking", booking);
@@ -101,7 +101,7 @@ public class BookingController {
     @PostMapping(value = "/updateBooking")
     public String updateBookingById(@Valid @ModelAttribute("id") int id, @Valid @ModelAttribute("bookingDto") BookingDto bookingDto, Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Booking> response = restTemplate.exchange("http://localhost:8080/updateBooking?id=" + id,
+        ResponseEntity<Booking> response = restTemplate.exchange("http://car_rental_server_container:8080/updateBooking?id=" + id,
                 HttpMethod.POST, new HttpEntity<BookingDto>(bookingDto), Booking.class);
         Booking booking = response.getBody();
         model.addAttribute("booking", booking);
