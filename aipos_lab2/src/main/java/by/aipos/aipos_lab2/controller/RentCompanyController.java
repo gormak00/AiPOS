@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class RentCompanyController {
     @Autowired
     RentCompanyServiceImpl rentCompanyService;
@@ -19,8 +20,8 @@ public class RentCompanyController {
         return rentCompanyService.getAllRentCompanies();
     }
 
-    @GetMapping(value = "/rentCompany")
-    public RentCompany getRentCompanyById(@RequestParam(value = "id", required = true) int id) {
+    @GetMapping(value = "/rentCompany/{id}")
+    public RentCompany getRentCompanyById(@PathVariable (value = "id") int id) {
         return rentCompanyService.getRentCompanyById(id);
     }
 
@@ -31,15 +32,15 @@ public class RentCompanyController {
         return rentCompanyService.getRentCompanyById(rentCompany1.getId());
     }
 
-    @PostMapping(value = "/deleteRentCompany")
-    public RentCompany dropRentCompanyById(@RequestParam(value = "id", required = true) int id) {
+    @DeleteMapping(value = "/deleteRentCompany/{id}")
+    public RentCompany dropRentCompanyById(@PathVariable (value = "id") int id) {
         RentCompany rentCompany = rentCompanyService.getRentCompanyById(id);
         rentCompanyService.dropRentCompanyById(id);
         return rentCompany;
     }
 
-    @PostMapping(value = "/updateRentCompany")
-    public RentCompany updateRentCompanyById(@RequestParam(value = "id", required = true) int id, @RequestBody RentCompanyDto rentCompanyDto){
+    @PutMapping(value = "/updateRentCompany/{id}")
+    public RentCompany updateRentCompanyById(@PathVariable (value = "id") int id, @RequestBody RentCompanyDto rentCompanyDto){
         RentCompany rentCompany = RentCompanyMapper.toRentCompany(rentCompanyDto);
         return rentCompanyService.updateRentCompanyById(rentCompany, id);
     }

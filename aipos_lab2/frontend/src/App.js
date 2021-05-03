@@ -1,16 +1,16 @@
 import './App.css';
 import React, {Component} from "react";
-import CreateGame from "./create_components/CreateGame";
-import CreateKey from "./create_components/CreateKey";
+import CreateRentCompany from "./create_components/CreateRentCompany";
 import CreateReview from "./create_components/CreateReview";
+import CreateBooking from "./create_components/CreateBooking";
 import CreateClient from "./create_components/CreateClient";
 import DeleteReview from "./delete_components/DeleteReview";
 import DeleteClient from "./delete_components/DeleteClient";
-import DeleteKey from "./delete_components/DeleteKey";
-import DeleteGame from "./delete_components/DeleteGame";
-import UpdateGame from "./update_components/UpdateGame";
-import UpdateKey from "./update_components/UpdateKey";
+import DeleteBooking from "./delete_components/DeleteBooking";
+import DeleteRentCompany from "./delete_components/DeleteRentCompany";
+import UpdateRentCompany from "./update_components/UpdateRentCompany";
 import UpdateReview from "./update_components/UpdateReview";
+import UpdateBooking from "./update_components/UpdateBooking";
 import UpdateClient from "./update_components/UpdateClient";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import MenuPopupState from "./MenuPopupState";
@@ -18,8 +18,6 @@ import Bookings from "./components/Bookings";
 import Clients from "./components/Clients";
 import RentCompanies from "./components/RentCompanies";
 import Review from "./components/Review";
-import Image from "./create_components/Image"
-import ImageUser from "./create_components/ImageUser"
 import {Button} from "@material-ui/core";
 import Registration from "./components/Registration";
 import Login from "./components/Login";

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class BookingController {
 
     @Autowired
@@ -28,8 +29,8 @@ public class BookingController {
         return bookingService.getAllBookings();
     }
 
-    @GetMapping(value = "/booking")
-    public Booking getBookingById(@RequestParam(value = "id", required = true) int id) {
+    @GetMapping(value = "/booking/{id}")
+    public Booking getBookingById(@PathVariable (value = "id") int id) {
         return bookingService.getBookingById(id);
     }
 
@@ -39,15 +40,15 @@ public class BookingController {
         return bookingService.addBooking(booking);
     }
 
-    @PostMapping(value = "/deleteBooking")
-    public Booking dropBookingById(@RequestParam(value = "id", required = true) int id) {
+    @PostMapping(value = "/deleteBooking/{id}")
+    public Booking dropBookingById(@PathVariable (value = "id") int id) {
         Booking booking = bookingService.getBookingById(id);
         bookingService.dropById(id);
         return booking;
     }
 
-    @PostMapping(value = "/updateBooking")
-    public Booking updateBookingById(@RequestParam(value = "id", required = true) int id, @RequestBody BookingDto bookingDto) {
+    @PostMapping(value = "/updateBooking/{id}")
+    public Booking updateBookingById(@PathVariable (value = "id") int id, @RequestBody BookingDto bookingDto) {
         Booking booking = bookingMapper.toBooking(bookingDto);
         return bookingService.updateBookingById(booking, id);
     }

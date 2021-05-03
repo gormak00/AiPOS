@@ -33,14 +33,14 @@ class RentCompanies extends Component{
                                 <th width={300}>Name</th>
                             </tr>
                         </thead>
-                        {this.state.rows && this.state.rows.map(key => (
+                        {this.state.rows && this.state.rows.map(rentCompany => (
                             <tbody align="center">
                                 <tr>
                                     <td width={50}>{rentCompany.id}</td>
                                     <td width={300}>{rentCompany.name}</td>
 
-                                    <Button component={Link} to={'/rentCompany/deleteRentCompany/' + rentCompany.id} variant="contained" color="primary">Delete</Button>
-                                    <Button component={Link} to={'/rentCompany/updateRentCompany/' + rentCompany.id} variant="contained" color="primary">Update</Button>
+                                    <Button component={Link} to={'/rentCompany/delete/' + rentCompany.id} variant="contained" color="primary">Delete</Button>
+                                    <Button component={Link} to={'/rentCompany/update/' + rentCompany.id} variant="contained" color="primary">Update</Button>
                                 </tr>
                             </tbody>
                         ))
@@ -48,7 +48,6 @@ class RentCompanies extends Component{
                     </table>
                     <div>
                         <Button component={Link} to="/rentCompany/add" variant="contained" color="primary">Add RentCompany</Button>
-                        <Button component={Link} to="/rentCompany/delete" variant="contained" color="primary">Delete RentCompany</Button>
                     </div>
                 </div>
             </main>

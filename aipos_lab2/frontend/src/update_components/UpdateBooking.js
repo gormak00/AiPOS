@@ -31,7 +31,7 @@ class UpdateBooking extends Component{
             alert("Enter all Fields");
         }
         else{
-            axios.post(`http://localhost:8080/booking/update/` + this.props.match.params.id, JSON.stringify({
+            axios.put(`http://localhost:8080/updateBooking/` + this.props.match.params.id, JSON.stringify({
                 'id': this.props.match.params.id,
                 'clientId': clientId,
                 'carId': carId,

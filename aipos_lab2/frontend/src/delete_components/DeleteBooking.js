@@ -18,7 +18,7 @@ class DeleteBooking extends Component {
 
     componentDidMount() {
         console.log(this.props);
-        axios.delete('http://localhost:8080/booking/delete/' + this.props.match.params.id)
+        axios.delete('http://localhost:8080/deleteBooking/' + this.props.match.params.id)
             .then((response) => {
                 this.setState({status: response.data.status});
             })

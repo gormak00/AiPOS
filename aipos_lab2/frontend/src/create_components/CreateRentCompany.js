@@ -37,7 +37,7 @@ class CreateRentCompany extends Component{
     }
 
     render() {
-        let {key, game} = this.state;
+        let {name} = this.state;
         return(
             <main>
                 <div>

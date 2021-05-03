@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class CarController {
 
     @Autowired
@@ -22,27 +23,27 @@ public class CarController {
         return carService.getAllCars();
     }
 
-    @GetMapping(value = "/car")
-    public Car getCarById(@RequestParam(value = "id", required = true) int id) {
+    @GetMapping(value = "/car/{id}")
+    public Car getCarById(@PathVariable (value = "id") int id) {
         return carService.getCarById(id);
     }
 
-    @PostMapping(value = "/car")
+    @PostMapping(value = "/car/{id}")
     public Car addCar(@RequestBody CarDto carDto) {
         Car car = carMapper.toCar(carDto);
         Car car1 = carService.addCar(car);
         return carService.addCar(car);
     }
 
-    @PostMapping(value = "/deleteCar")
-    public Car dropCarById(@RequestParam(value = "id", required = true) int id) {
+    @DeleteMapping(value = "/deleteCar/{id}")
+    public Car dropCarById(@PathVariable (value = "id") int id) {
         Car car = carService.getCarById(id);
         carService.dropCarById(id);
         return car;
     }
 
-    @PostMapping(value = "/updateCar")
-    public Car updateCarById(@RequestParam(value = "id", required = true) int id, @RequestBody CarDto carDto){
+    @PutMapping(value = "/updateCar/{id}")
+    public Car updateCarById(@PathVariable (value = "id") int id, @RequestBody CarDto carDto){
         Car car = carMapper.toCar(carDto);
         return carService.updateCarById(car, id);
     }
