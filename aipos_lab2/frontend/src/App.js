@@ -1,15 +1,15 @@
 import './App.css';
 import React, {Component} from "react";
 import CreateRentCompany from "./create_components/CreateRentCompany";
-import CreateReview from "./create_components/CreateReview";
+import CreateCar from "./create_components/CreateCar";
 import CreateBooking from "./create_components/CreateBooking";
 import CreateClient from "./create_components/CreateClient";
-import DeleteReview from "./delete_components/DeleteReview";
+import DeleteCar from "./delete_components/DeleteCar";
 import DeleteClient from "./delete_components/DeleteClient";
 import DeleteBooking from "./delete_components/DeleteBooking";
 import DeleteRentCompany from "./delete_components/DeleteRentCompany";
 import UpdateRentCompany from "./update_components/UpdateRentCompany";
-import UpdateReview from "./update_components/UpdateReview";
+import UpdateCar from "./update_components/UpdateCar";
 import UpdateBooking from "./update_components/UpdateBooking";
 import UpdateClient from "./update_components/UpdateClient";
 import {BrowserRouter, Link, Route} from "react-router-dom";
@@ -17,7 +17,7 @@ import MenuPopupState from "./MenuPopupState";
 import Bookings from "./components/Bookings";
 import Clients from "./components/Clients";
 import RentCompanies from "./components/RentCompanies";
-import Review from "./components/Review";
+import Cars from "./components/Cars";
 import {Button} from "@material-ui/core";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
@@ -56,10 +56,10 @@ class App extends Component{
                     <Route exact path='/rentCompany/delete/:id' component={DeleteRentCompany}/>
                     <Route exact path='/rentCompany/update/:id' component={UpdateRentCompany}/>
 
-                    <Route exact path='/Review' component={Review}/>
-                    <Route exact path='/CreateReview' component={CreateReview}/>
-                    <Route exact path='/reviews/delete/:id' component={DeleteReview}/>
-                    <Route exact path='/reviews/update/:id' component={UpdateReview}/>
+                    <Route exact path='/cars' component={Cars}/>
+                    <Route exact path='/car/add' component={CreateCar}/>
+                    <Route exact path='/car/delete/:id' component={DeleteCar}/>
+                    <Route exact path='/car/update/:id' component={UpdateCar}/>
                 </div>
             </BrowserRouter>
         );
