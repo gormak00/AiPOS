@@ -1,20 +1,20 @@
 import './App.css';
 import React, {Component} from "react";
 import CreateGame from "./create_components/CreateGame";
-import CreateKey from "./create_components/CreateRentCompany";
+import CreateKey from "./create_components/CreateKey";
 import CreateReview from "./create_components/CreateReview";
 import CreateClient from "./create_components/CreateClient";
 import DeleteReview from "./delete_components/DeleteReview";
 import DeleteClient from "./delete_components/DeleteClient";
-import DeleteKey from "./delete_components/DeleteRentCompany";
+import DeleteKey from "./delete_components/DeleteKey";
 import DeleteGame from "./delete_components/DeleteGame";
 import UpdateGame from "./update_components/UpdateGame";
-import UpdateKey from "./update_components/UpdateRentCompany";
+import UpdateKey from "./update_components/UpdateKey";
 import UpdateReview from "./update_components/UpdateReview";
 import UpdateClient from "./update_components/UpdateClient";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import MenuPopupState from "./MenuPopupState";
-import Games from "./components/Games";
+import Bookings from "./components/Bookings";
 import Clients from "./components/Clients";
 import RentCompanies from "./components/RentCompanies";
 import Review from "./components/Review";
@@ -48,11 +48,10 @@ class App extends Component{
                     <Route exact path='/client/delete/:id' component={DeleteClient}/>
                     <Route exact path='/client/update/:id' component={UpdateClient}/>
 
-                    <Route exact path='/Games' component={Games}/>
-                    <Route exact path='/Image' component={Image}/>
-                    <Route exact path='/CreateGame' component={CreateGame}/>
-                    <Route exact path='/games/delete/:id' component={DeleteGame}/>
-                    <Route exact path='/games/update/:id' component={UpdateGame}/>
+                    <Route exact path='/bookings' component={Bookings}/>
+                    <Route exact path='/booking/add' component={CreateBooking}/>
+                    <Route exact path='/booking/delete/:id' component={DeleteBooking}/>
+                    <Route exact path='/booking/update/:id' component={UpdateBooking}/>
 
                     <Route exact path='/rentCompanies' component={RentCompanies}/>
                     <Route exact path='/rentCompany/add' component={CreateRentCompany}/>

@@ -25,7 +25,7 @@ export default function MenuPopupState() {
                     </Button>
                     <Menu {...bindMenu(popupState)}>
                         <MenuItem component={Link} to="/clients">Clients</MenuItem>
-                        <MenuItem component={Link} to="/Games">Games</MenuItem>
+                        <MenuItem component={Link} to="/bookings">Bookings</MenuItem>
                         <MenuItem component={Link} to="/Review">Review</MenuItem>
                         <MenuItem component={Link} to="/rentCompanies">RentCompanies</MenuItem>
                     </Menu>

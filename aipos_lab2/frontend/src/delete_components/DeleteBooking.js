@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 Redirect.propTypes = {to: PropTypes.string};
 
-class DeleteGame extends Component {
+class DeleteBooking extends Component {
 
     constructor(props) {
         super(props);
@@ -18,7 +18,7 @@ class DeleteGame extends Component {
 
     componentDidMount() {
         console.log(this.props);
-        axios.delete('http://localhost:8082/games/delete/' + this.props.match.params.id)
+        axios.delete('http://localhost:8080/booking/delete/' + this.props.match.params.id)
             .then((response) => {
                 this.setState({status: response.data.status});
             })
@@ -30,9 +30,9 @@ class DeleteGame extends Component {
 
     render() {
             return (
-                <Redirect to={'/Games'}/>
+                <Redirect to={'/bookings'}/>
             )
     }
 }
 
-export default withRouter(DeleteGame);
+export default withRouter(DeleteBooking);
