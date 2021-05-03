@@ -6,7 +6,7 @@ import * as PropTypes from "prop-types";
 
 Redirect.propTypes = {to: PropTypes.string};
 
-class DeleteUser extends Component{
+class DeleteClient extends Component{
 
     constructor(props) {
         super(props);
@@ -17,7 +17,7 @@ class DeleteUser extends Component{
 
     componentDidMount() {
         console.log(this.props);
-        axios.delete('http://localhost:8082/users/delete/' + this.props.match.params.id)
+        axios.delete('http://localhost:8080/client/' + this.props.match.params.id)
             .then((response) => {
                 this.setState({status: response.data.status});
             })
@@ -29,8 +29,8 @@ class DeleteUser extends Component{
 
     render() {
             return (
-                <Redirect to={'/Users'}/>
+                <Redirect to={'/clients'}/>
             );
     }
 }
-export default withRouter(DeleteUser);
+export default withRouter(DeleteClient);

@@ -24,7 +24,7 @@ export default function MenuPopupState() {
                     <Button style={{color: 'white'}} color="transparent" {...bindTrigger(popupState)}><HomeIcon/>
                     </Button>
                     <Menu {...bindMenu(popupState)}>
-                        <MenuItem component={Link} to="/Users">User</MenuItem>
+                        <MenuItem component={Link} to="/clients">Clients</MenuItem>
                         <MenuItem component={Link} to="/Games">Games</MenuItem>
                         <MenuItem component={Link} to="/Review">Review</MenuItem>
                         <MenuItem component={Link} to="/Keys">Keys</MenuItem>

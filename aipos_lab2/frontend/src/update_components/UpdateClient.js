@@ -7,14 +7,13 @@ const axiosPOSTconfig = {headers: {'Content-Type': 'application/json'}};
 
 
 
-class UpdateUser extends Component{
+class UpdateClient extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            username: '',
-            password: ''
+            name: '',
+            phoneNumber: ''
         };
     }
 
@@ -24,15 +23,14 @@ class UpdateUser extends Component{
 
     onSubmit = (event) => {
         event.preventDefault();
-        let {email, username, password} = this.state;
-        if((email === '') || (username === '') || (password === '')){
+        let {name, phoneNumber} = this.state;
+        if((name === '') || (phoneNumber === '')){
             alert('You need Enter all Fields');
         }
         else{
-            axios.post(`http://localhost:8082/users/update/` + this.props.match.params.id, JSON.stringify({
-                'email': email,
-                'username': username,
-                'password': password,
+            axios.post(`http://localhost:8080/client/` + this.props.match.params.id, JSON.stringify({
+                'name': name,
+                'phoneNumber': phoneNumber
             }), axiosPOSTconfig)
                 .then((response) => {
                     alert('Update Completed');
@@ -45,23 +43,22 @@ class UpdateUser extends Component{
 
     componentDidMount() {
         console.log(this.props);
-        axios.get(`http://localhost:8082/users/update/`+this.props.match.params.id)
-            .then((response) => {this.setState({email: response.data.data.email, username: response.data.data.username, password: response.data.data.password});})
+        axios.get(`http://localhost:8080/client/`+this.props.match.params.id)
+            .then((response) => {this.setState({name: response.data.data.name, phoneNumber: response.data.data.phoneNumber});})
             .catch((error) => {console.log(error); this.setState({ message: error.message.details })});
     }
 
     render() {
-        let {email, username, password} = this.state;
+        let {name, phoneNumber} = this.state;
         return(
             <main role="main" className="container">
                 <div>
                     <form onSubmit={this.onSubmit}>
-                        <Input id="email" type="text" value={email} placeholder={"Email"} onChange={this.onChange}/><br/>
-                        <Input id="username" type="text" value={username} placeholder={"User Name"} onChange={this.onChange}/><br/>
-                        <Input id="password" type="password" value={password} placeholder={"Password"} onChange={this.onChange}/><br/>
+                        <Input id="name" type="text" value={name} placeholder={"Name"} onChange={this.onChange}/><br/>
+                        <Input id="phoneNumber" type="text" value={phoneNumber} placeholder={"Phone number"} onChange={this.onChange}/><br/>
                         <br/>
                         <Button onClick={this.onSubmit} variant="contained" color="primary">Update</Button><br/>
-                        <br/><Button component={Link} to="/Users" variant="contained" color="primary">User's Table</Button>
+                        <br/><Button component={Link} to="/clients" variant="contained" color="primary">Client's Table</Button>
                     </form>
                 </div>
             </main>
@@ -69,4 +66,4 @@ class UpdateUser extends Component{
     }
 }
 
-export default withRouter(UpdateUser);
+export default withRouter(UpdateClient);
