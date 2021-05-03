@@ -50,8 +50,6 @@ class Clients extends Component{
                     </table>
                     <div>
                         <Button component={Link} to="/client/add" variant="contained" color="primary">Add Client</Button>
-                        <Button component={Link} to="/client/delete" variant="contained" color="primary">Delete Client</Button>
-
                     </div>
                 </div>
             </main>
