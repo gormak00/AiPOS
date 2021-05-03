@@ -6,14 +6,12 @@ import {TextField} from "@material-ui/core";
 const axiosPOSTconfig = {headers: {'Content-Type': 'application/json'}};
 
 
-class UpdateKey extends Component{
+class UpdateRentCompany extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
-            key: "",
-            game: ""
+            name: ''
         };
     }
 
@@ -24,14 +22,12 @@ class UpdateKey extends Component{
     onSubmit = (event) => {
         event.preventDefault();
         let {key, game} = this.state;
-        if((key === '') || (game === '')) {
+        if(name === '') {
             alert('Enter all Fields');
         }
         else{
-            axios.post('http://localhost:8082/keys/update/' + this.props.match.params.id, JSON.stringify({
-                'id': this.props.match.params.id,
-                'key': key,
-                'game': game,
+            axios.post('http://localhost:8080/updateRentCompany/' + this.props.match.params.id, JSON.stringify({
+                'name': name
             }), axiosPOSTconfig)
                 .then((response) => {
                     alert('Update Completed');
@@ -43,22 +39,21 @@ class UpdateKey extends Component{
 
     componentDidMount() {
         console.log(this.props);
-        axios.get(`http://localhost:8082/keys/update/`+this.props.match.params.id)
-            .then((response) => {this.setState({key: response.data.data.key, game: response.data.data.game.name});})
+        axios.get(`http://localhost:8080/rentCompany/`+this.props.match.params.id)
+            .then((response) => {this.setState({name: response.data.name});})
             .catch((error) => {console.log(error); this.setState({ message: error.message })});
     }
 
     render() {
-        let {key, game} = this.state;
+        let {name} = this.state;
         return(
             <main role="main" className="container">
                 <div>
                     <form onSubmit={this.onSubmit}>
-                        <TextField id="key" type="text" value={key} placeholder={"Key"} onChange={this.onChange}/><br/>
-                        <TextField id="game" type="text" value={game} placeholder={"Game name"} onChange={this.onChange}/><br/>
+                        <TextField id="key" type="text" value={name} placeholder={"Name"} onChange={this.onChange}/><br/>
 
                         <br/><Button onClick={this.onSubmit} variant="contained" color="primary">Update Key</Button><br/>
-                        <br/><Button component={Link} to="/Keys" variant="contained" color="primary">Key's Table</Button><br/>
+                        <br/><Button component={Link} to="/rentCompanies" variant="contained" color="primary">RentCompany's Table</Button><br/>
                     </form>
                 </div>
             </main>
@@ -66,4 +61,4 @@ class UpdateKey extends Component{
     }
 }
 
-export default withRouter(UpdateKey);
+export default withRouter(UpdateRentCompany);

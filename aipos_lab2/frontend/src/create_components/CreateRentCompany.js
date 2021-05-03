@@ -5,13 +5,12 @@ import {Link, withRouter} from "react-router-dom";
 const axiosPOSTconfig = {headers: {'Content-Type': 'application/json'}};
 
 
-class CreateKey extends Component{
+class CreateRentCompany extends Component{
 
     constructor(props) {
         super(props)
         this.state = {
-            key: "",
-            game: ""
+            name: ""
         }
     }
 
@@ -20,15 +19,14 @@ class CreateKey extends Component{
     }
 
     onSubmit = (event) => {
-        let {key, game} = this.state;
+        let {name} = this.state;
         event.preventDefault();
-        if(key === '' || game === ''){
+        if(name === ''){
             alert('Enter all fields');
         }
         else{
-            axios.post('http://localhost:8082/keys/create', JSON.stringify({
-                'key': key,
-                'game': game,
+            axios.post('http://localhost:8080/rentCompany', JSON.stringify({
+                'name': name
             }), axiosPOSTconfig)
                 .then((response) => {
                     this.setState({status: response.data.status});
@@ -44,15 +42,14 @@ class CreateKey extends Component{
             <main>
                 <div>
                     <form onSubmit={this.onSubmit}>
-                        <TextField id="key" type="text" value={key} placeholder={"Key"} onChange={this.onChange}/><br/>
-                        <TextField id="game" type="text" value={game} placeholder={"Game name"} onChange={this.onChange}/><br/>
+                        <TextField id="name" type="text" value={name} placeholder={"Name"} onChange={this.onChange}/><br/>
 
-                        <br/><Button onClick={this.onSubmit} variant="contained" color="primary">Create Key</Button><br/>
-                        <br/><Button component={Link} to="/Keys" variant="contained" color="primary">Key's Table</Button>
+                        <br/><Button onClick={this.onSubmit} variant="contained" color="primary">Added RentCompany</Button><br/>
+                        <br/><Button component={Link} to="/rentCompanies" variant="contained" color="primary">RentCompany's Table</Button>
                     </form>
                 </div>
             </main>
         );
     }
 }
-export default withRouter(CreateKey);
+export default withRouter(CreateRentCompany);

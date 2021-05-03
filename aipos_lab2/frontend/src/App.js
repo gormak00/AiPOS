@@ -1,22 +1,22 @@
 import './App.css';
 import React, {Component} from "react";
 import CreateGame from "./create_components/CreateGame";
-import CreateKey from "./create_components/CreateKey";
+import CreateKey from "./create_components/CreateRentCompany";
 import CreateReview from "./create_components/CreateReview";
 import CreateClient from "./create_components/CreateClient";
 import DeleteReview from "./delete_components/DeleteReview";
 import DeleteClient from "./delete_components/DeleteClient";
-import DeleteKey from "./delete_components/DeleteKey";
+import DeleteKey from "./delete_components/DeleteRentCompany";
 import DeleteGame from "./delete_components/DeleteGame";
 import UpdateGame from "./update_components/UpdateGame";
-import UpdateKey from "./update_components/UpdateKey";
+import UpdateKey from "./update_components/UpdateRentCompany";
 import UpdateReview from "./update_components/UpdateReview";
 import UpdateClient from "./update_components/UpdateClient";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import MenuPopupState from "./MenuPopupState";
 import Games from "./components/Games";
 import Clients from "./components/Clients";
-import Keys from "./components/Keys";
+import RentCompanies from "./components/RentCompanies";
 import Review from "./components/Review";
 import Image from "./create_components/Image"
 import ImageUser from "./create_components/ImageUser"
@@ -54,10 +54,10 @@ class App extends Component{
                     <Route exact path='/games/delete/:id' component={DeleteGame}/>
                     <Route exact path='/games/update/:id' component={UpdateGame}/>
 
-                    <Route exact path='/Keys' component={Keys}/>
-                    <Route exact path='/CreateKey' component={CreateKey}/>
-                    <Route exact path='/keys/delete/:id' component={DeleteKey}/>
-                    <Route exact path='/keys/update/:id' component={UpdateKey}/>
+                    <Route exact path='/rentCompanies' component={RentCompanies}/>
+                    <Route exact path='/rentCompany/add' component={CreateRentCompany}/>
+                    <Route exact path='/rentCompany/delete/:id' component={DeleteRentCompany}/>
+                    <Route exact path='/rentCompany/update/:id' component={UpdateRentCompany}/>
 
                     <Route exact path='/Review' component={Review}/>
                     <Route exact path='/CreateReview' component={CreateReview}/>
