@@ -28,7 +28,7 @@ class UpdateClient extends Component{
             alert('You need Enter all Fields');
         }
         else{
-            axios.post(`http://localhost:8080/client/` + this.props.match.params.id, JSON.stringify({
+            axios.put(`http://localhost:8080/updateClient/` + this.props.match.params.id, JSON.stringify({
                 'name': name,
                 'phoneNumber': phoneNumber
             }), axiosPOSTconfig)
@@ -44,7 +44,7 @@ class UpdateClient extends Component{
     componentDidMount() {
         console.log(this.props);
         axios.get(`http://localhost:8080/client/`+this.props.match.params.id)
-            .then((response) => {this.setState({name: response.data.data.name, phoneNumber: response.data.data.phoneNumber});})
+            .then((response) => {this.setState({name: response.data.name, phoneNumber: response.data.phoneNumber});})
             .catch((error) => {console.log(error); this.setState({ message: error.message.details })});
     }
 

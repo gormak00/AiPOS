@@ -14,7 +14,7 @@ class Clients extends Component{
 
     componentDidMount() {
         axios.get('http://localhost:8080/clients')
-            .then((response) => {this.setState({rows: response.data.data});})
+            .then((response) => {this.setState({rows: response.data});})
             .catch((error) => {console.log(error); this.setState({ message: error.message })});
     }
 
@@ -30,7 +30,7 @@ class Clients extends Component{
                     <table className="clients">
                         <thead>
                             <tr>
-                                <th width={50}>id</th>
+                                <th width={50}>ID</th>
                                 <th width={100}>Name</th>
                                 <th width={300}>PhoneNumber</th>
                             </tr>

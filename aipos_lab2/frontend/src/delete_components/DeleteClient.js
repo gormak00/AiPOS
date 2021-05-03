@@ -17,7 +17,7 @@ class DeleteClient extends Component{
 
     componentDidMount() {
         console.log(this.props);
-        axios.delete('http://localhost:8080/client/' + this.props.match.params.id)
+        axios.delete('http://localhost:8080/deleteClient/' + this.props.match.params.id)
             .then((response) => {
                 this.setState({status: response.data.status});
             })
