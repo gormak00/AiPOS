@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import axios from "axios";
 import {Link, withRouter} from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -17,6 +17,10 @@ export class Games extends Component{
         axios.get('http://localhost:8082/games')
             .then((response => {this.setState({rows: response.data.data});}))
             .catch((error) => {console.log(error); this.setState({ message: error.message })});
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.componentDidMount();
     }
 
     render() {

@@ -29,16 +29,9 @@ class DeleteGame extends Component {
     }
 
     render() {
-        if (this.state.status === 1) {
             return (
                 <Redirect to={'/Games'}/>
-            );
-        }
-        return (
-            <div>Deletion complete
-                <br/><Button component={Link} to="/Games" variant="contained" color="primary" >Game's Table</Button>
-            </div>
-        );
+            )
     }
 }
 

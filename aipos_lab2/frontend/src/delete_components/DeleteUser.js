@@ -28,16 +28,9 @@ class DeleteUser extends Component{
     }
 
     render() {
-        if (this.state.status === 1) {
             return (
                 <Redirect to={'/Users'}/>
             );
-        }
-        return (
-            <div>Deletion complete
-                <br/><Button component={Link} to="/Users" variant="contained" color="primary" >User's Table</Button>
-            </div>
-        );
     }
 }
 export default withRouter(DeleteUser);

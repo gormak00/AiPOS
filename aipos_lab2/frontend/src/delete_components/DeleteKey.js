@@ -28,16 +28,9 @@ class DeleteKey extends Component{
     }
 
     render() {
-        if (this.state.status === 1) {
             return (
                 <Redirect to={'/Keys'}/>
             );
-        }
-        return (
-            <div>Deletion complete
-                <br/><Button component={Link} to="/Keys" variant="contained" color="primary" >Key's Table</Button>
-            </div>
-        );
     }
 }
 export default withRouter(DeleteKey);

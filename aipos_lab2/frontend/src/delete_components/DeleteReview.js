@@ -28,16 +28,9 @@ class DeleteReview extends Component{
     }
 
     render() {
-        if (this.state.status === 1) {
             return (
                 <Redirect to={'/Review'}/>
             );
-        }
-        return (
-            <div>Deletion complete
-                <br/><Button component={Link} to="/Review" variant="contained" color="primary" >Review's Table</Button>
-            </div>
-        );
     }
 }
 export default withRouter(DeleteReview);
