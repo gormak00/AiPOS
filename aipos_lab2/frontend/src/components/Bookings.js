@@ -44,9 +44,9 @@ export class Bookings extends Component{
                                 <tr>
                                     <td width={50}>{booking.id}</td>
                                     <td width={100}>{booking.client.name}</td>
-                                    <td width={500}>{booking.car.number}</td>
-                                    <td width={200}>{booking.dateStart}</td>
-                                    <td width={50}>{booking.dateEnd}</td>
+                                    <td width={100}>{booking.car.model}</td>
+                                    <td width={100}>{booking.dateStart}</td>
+                                    <td width={100}>{booking.dateEnd}</td>
                                     <Button component={Link} to={'/booking/delete/' + booking.id} variant="contained" color="primary">Delete</Button>
                                     <Button component={Link} to={'/booking/update/' + booking.id} variant="contained" color="primary">Update</Button>
                                 </tr>

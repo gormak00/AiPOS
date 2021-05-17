@@ -13,7 +13,7 @@ class Cars extends Component{
 
     componentDidMount() {
         axios.get('http://localhost:8080/cars')
-            .then((response) => {this.setState({rows: response.data.data});})
+            .then((response) => {this.setState({rows: response.data});})
             .catch((error) => {console.log(error); this.setState({ message: error.message })});
     }
 
@@ -26,7 +26,7 @@ class Cars extends Component{
             <main role="main" className="container">
                 <div align="center">
                     {this.state.rows === null && <p>Loading menu...</p>}
-                    </br>
+                    <br/>
                     <table className="cars">
                         <thead>
                             <tr>
@@ -37,16 +37,16 @@ class Cars extends Component{
                                 <th width={200}>rented</th>
                             </tr>
                         </thead>
-                        {this.state.rows && this.state.rows.map(reviews => (
+                        {this.state.rows && this.state.rows.map(car => (
                             <tbody align="center">
                                 <tr>
                                     <td width={50}>{car.id}</td>
                                     <td width={100}>{car.number}</td>
                                     <td width={500}>{car.model}</td>
-                                    <td width={200}>{car.nameOfRentCompany}</td>
+                                    <td width={200}>{car.rentCompany.name}</td>
                                     <td width={200}>{car.rented}</td>
-                                    <Button component={Link} to={'/car/delete/' + reviews.id} variant="contained" color="primary">Delete</Button>
-                                    <Button component={Link} to={'/car/update/' + reviews.id} variant="contained" color="primary">Update</Button>
+                                    <Button component={Link} to={'/car/delete/' + car.id} variant="contained" color="primary">Delete</Button>
+                                    <Button component={Link} to={'/car/update/' + car.id} variant="contained" color="primary">Update</Button>
                                 </tr>
                             </tbody>
                         ))}

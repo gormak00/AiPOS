@@ -64,7 +64,7 @@ class UpdateCar extends Component{
                     <form onSubmit={this.onSubmit}>
                         <TextField id="number" type="text" value={number} placeholder={"number"} onChange={this.onChange}/><br/>
                         <TextField id="model" type="text" value={model} placeholder={"model"} onChange={this.onChange}/><br/>
-                        <TextField id="nameOfRentCompany" type="text" value={nameOfRentCompany} placeholder={"nameOfRentCompany"} onChange={this.onChange}/><br/>
+                        <TextField id="rentCompany.name" type="text" value={nameOfRentCompany} placeholder={"rentCompany.name"} onChange={this.onChange}/><br/>
                         <TextField id="rented" type="text" value={rented} placeholder={"rented"} onChange={this.onChange}/><br/>
 
                         <br/><Button onClick={this.onSubmit} variant="contained" color="primary">Update car</Button><br/>
@@ -81,7 +81,7 @@ class UpdateCar extends Component{
                     <th width={100}>Name</th>
                     </tr>
                     </thead>
-                {this.state.rows1 && this.state.rows1.map(client => (
+                {this.state.rows1 && this.state.rows1.map(rentCompany => (
                     <tbody align="center">
                     <tr>
                     <td width={50}>{rentCompany.id}</td>

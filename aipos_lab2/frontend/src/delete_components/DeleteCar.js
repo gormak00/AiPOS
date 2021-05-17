@@ -17,7 +17,7 @@ class DeleteCar extends Component{
 
     componentDidMount() {
         console.log(this.props);
-        axios.delete('http://localhost:8080/deleteBooking/' + this.props.match.params.id)
+        axios.delete('http://localhost:8080/deleteCar/' + this.props.match.params.id)
             .then((response) => {
                 this.setState({status: response.data.status});
             })

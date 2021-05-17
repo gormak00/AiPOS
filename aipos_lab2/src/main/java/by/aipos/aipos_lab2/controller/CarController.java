@@ -28,10 +28,9 @@ public class CarController {
         return carService.getCarById(id);
     }
 
-    @PostMapping(value = "/car/{id}")
+    @PostMapping(value = "/car")
     public Car addCar(@RequestBody CarDto carDto) {
         Car car = carMapper.toCar(carDto);
-        Car car1 = carService.addCar(car);
         return carService.addCar(car);
     }
 
